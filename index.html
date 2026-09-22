@@ -37,6 +37,13 @@ section{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 .vid{background:#0b0b0d;border-radius:8px;aspect-ratio:16/9;display:grid;place-items:center;color:#fff;margin:8px 0;position:relative}
 .vid::after{content:"▶";font-size:28px;opacity:.9}
 .vid span{position:absolute;left:8px;bottom:6px;font-size:11px;opacity:.8}
+.vid{cursor:pointer}
+.vid.seen{background:#1f3b2c}
+.vid.seen::after{content:"Visto";font:700 14px Lato}
+.vid.seen span{opacity:1}
+.gate{font:700 13px Lato;color:var(--warn);background:var(--warn-bg);border-radius:8px;padding:8px 10px;margin-top:10px}
+.gate[hidden]{display:none}
+.btns button:disabled{opacity:.35;cursor:default}
 .btns{display:flex;flex-direction:column;gap:8px;margin-top:10px}
 .btns button,.row button{font:700 15px Lato,system-ui,sans-serif;border:0;border-radius:10px;padding:12px;cursor:pointer;background:var(--accent);color:#fff}
 .btns button.sec{background:#e9e7ef;color:#2a2a35}
@@ -105,7 +112,7 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
 <section id="s1">
   <div class="num">1 di 9</div>
   <h2>Arriva una candidatura</h2>
-  <p>Jonas compila il form sul sito. Il sistema controlla che ci siano bio e i due video, lo registra e ti avvisa. Tu ricevi questo sul telefono. È RE.SEARCH, quindi tu fai il primo filtro e Andrea decide.</p>
+  <p>Jonas compila il form sul sito. Il sistema controlla che ci siano bio e i due video, lo registra e ti avvisa. Tu ricevi questo sul telefono. È RE.SEARCH, quindi tu fai il primo filtro e Andrea decide. Tocca i due video: qui sono finti, nel sistema vero partono davvero.</p>
   <div class="phone"><div class="screen">
     <div class="bar"><span>9:41</span><span>●●●</span></div>
     <div class="app">
@@ -115,9 +122,10 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
         <h4>Jonas Weber, 23</h4>
         <div class="meta">Berlino · RE.SEARCH Session B (gennaio–marzo)</div>
         <p style="font-size:14px;margin:8px 0 0">Formazione a Berlino e Rotterdam, due anni in una compagnia giovanile. Cerca un percorso di ricerca coreografica con autori internazionali.</p>
-        <div class="vid"><span>Improvvisazione · 2:40</span></div>
-        <div class="vid"><span>Coreografia · 3:15</span></div>
-        <div class="btns" data-group="d1">
+        <div class="vid" data-seen="Improvvisazione · 2:40 · nel sistema vero qui parte il video YouTube o Vimeo che Jonas ha messo nel form"><span>Improvvisazione · 2:40</span></div>
+        <div class="vid" data-seen="Coreografia · 3:15 · nel sistema vero qui parte il video YouTube o Vimeo che Jonas ha messo nel form"><span>Coreografia · 3:15</span></div>
+        <div class="gate" id="gate1">Prima guarda i due video, poi decidi.</div>
+        <div class="btns" data-group="d1" data-gated="1">
           <button data-r="Fatto: Jonas è nel file che condividi con Andrea, e Andrea ha ricevuto la mail con i link. Ti avviso quando decide.">Passa ad Andrea</button>
           <button class="sec" data-r="Segnato: non adatto. Ti preparo la risposta per Jonas.">Non adatto</button>
           <button class="sec" data-r="Ti preparo la mail per chiedergli altro materiale.">Chiedi altro materiale</button>
@@ -406,6 +414,20 @@ Vuoi che la accorci o la cambi?</div>
       });
     });
   });
+
+  // video gate (scene 1)
+  var gate=document.getElementById('gate1'), gated=document.querySelector('[data-gated]');
+  if(gate&&gated){
+    gated.querySelectorAll('button').forEach(function(b){b.disabled=true});
+    var vids=document.querySelectorAll('#s1 .vid');
+    vids.forEach(function(v){
+      v.addEventListener('click',function(){
+        v.classList.add('seen'); v.querySelector('span').textContent=v.getAttribute('data-seen');
+        var all=[].every.call(vids,function(x){return x.classList.contains('seen')});
+        if(all){gate.hidden=true; gated.querySelectorAll('button').forEach(function(b){b.disabled=false});}
+      });
+    });
+  }
 
   // feedback boxes
   document.querySelectorAll('.fb').forEach(function(fb){
