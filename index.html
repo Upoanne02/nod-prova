@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NOD, prova del sistema</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+:root{--bg:#f7f6f3;--paper:#fff;--ink:#22232e;--muted:#63657a;--line:#dedcd6;--accent:#5b4a8b;--accent-soft:#ece8f5;--ok:#2c6e49;--ok-bg:#e3f1e8;--warn:#8a5a00;--warn-bg:#fbefd6;--phone:#111318}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:18px/1.6 "Source Serif 4",Georgia,serif;padding-inline:16px;padding-block:24px 80px}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+.eyebrow{font:700 12px/1 Lato,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:900 clamp(30px,7vw,42px)/1.1 Lato,system-ui,sans-serif;margin:10px 0 10px;text-wrap:balance}
+h2{font:900 24px/1.2 Lato,system-ui,sans-serif;margin:0 0 6px;text-wrap:balance}
+.num{font:700 13px/1 Lato,system-ui,sans-serif;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+p{margin:0 0 12px;max-width:62ch}
+.intro{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.intro p:last-child{margin:0}
+section{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:22px clamp(16px,4vw,28px);display:flex;flex-direction:column;gap:14px}
+.why{font-size:16px;color:var(--muted);border-left:3px solid var(--accent);padding-left:12px}
+/* phone mockup */
+.phone{background:var(--phone);border-radius:26px;padding:10px;max-width:360px;width:100%;margin:6px auto;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+.screen{background:#f2f2f6;border-radius:18px;overflow:hidden;font:15px/1.4 Lato,system-ui,sans-serif;color:#1c1c22}
+.bar{display:flex;justify-content:space-between;font-size:12px;padding:8px 16px 0;color:#444}
+.app{padding:12px 14px 16px}
+.notif{background:#fff;border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.notif .ic{width:30px;height:30px;border-radius:8px;background:#d93025;color:#fff;font:900 14px Lato;display:grid;place-items:center;flex:none}
+.notif b{display:block;font-size:14px}
+.notif small{color:#555;font-size:13px}
+.card{background:#fff;border-radius:12px;padding:12px 14px;margin-top:10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h4{margin:0 0 4px;font:900 15px Lato}
+.card .meta{font-size:13px;color:#555}
+.vid{background:#0b0b0d;border-radius:8px;aspect-ratio:16/9;display:grid;place-items:center;color:#fff;margin:8px 0;position:relative}
+.vid::after{content:"▶";font-size:28px;opacity:.9}
+.vid span{position:absolute;left:8px;bottom:6px;font-size:11px;opacity:.8}
+.btns{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btns button,.row button{font:700 15px Lato,system-ui,sans-serif;border:0;border-radius:10px;padding:12px;cursor:pointer;background:var(--accent);color:#fff}
+.btns button.sec{background:#e9e7ef;color:#2a2a35}
+.btns button.pick{outline:3px solid var(--ok)}
+.result{margin-top:10px;background:var(--ok-bg);color:var(--ok);border-radius:10px;padding:10px 12px;font-weight:700;font-size:14px}
+.result[hidden]{display:none}
+.mail{background:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:14px}
+.mail .hd{display:flex;justify-content:space-between;color:#555;font-size:12px;margin-bottom:6px}
+.mail .from{font-weight:700;color:#1c1c22;font-size:14px}
+.mail .body{white-space:pre-wrap;line-height:1.45}
+.mail .body a{color:var(--accent)}
+.tag{display:inline-block;font:700 11px/1 Lato;letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-bottom:6px}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.tag.warn{background:var(--warn-bg);color:var(--warn)}
+.tl{list-style:none;padding:0;margin:4px 0 0;display:flex;flex-direction:column;gap:8px}
+.tl li{display:grid;grid-template-columns:64px 1fr;gap:10px;font-size:14px;align-items:start}
+.tl li b{font:700 12px/1.3 Lato;color:var(--accent);padding-top:3px}
+.tl li span{background:#fff;border-radius:10px;padding:8px 10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.tl li span.auto{background:var(--ok-bg)}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.slots button{font:700 14px Lato;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px;cursor:pointer}
+.slots button.pick{background:var(--accent);color:#fff;border-color:var(--accent)}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.stat div{background:#fff;border-radius:10px;padding:10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat b{display:block;font:900 22px Lato}
+.stat small{color:#555;font-size:12px}
+/* options */
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.opt h3{margin:0 0 4px;font:900 17px Lato}
+.opt .cost{font:700 13px Lato;color:var(--accent);margin-bottom:6px}
+.opt p{font-size:16px;margin:0}
+.opt.rec{border-color:var(--accent);background:var(--accent-soft)}
+/* feedback */
+.fb{border-top:1px dashed var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px;font-family:Lato,system-ui,sans-serif}
+.fb label{font-weight:700;font-size:16px}
+.fb textarea{width:100%;min-height:90px;resize:vertical;font:16px/1.45 Lato,system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.fb textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row button{background:var(--ink)}
+.row button:disabled{opacity:.4;cursor:default}
+.state{font-size:14px;padding:3px 8px;border-radius:4px}
+.state.ok{color:var(--ok);background:var(--ok-bg)}
+.state.err{color:#b3261e;background:#fbe9e7}
+.hint{font-size:13px;color:var(--muted)}
+footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:no-preference){.result{animation:in .25s ease}}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">NOD · prova del sistema</div>
+  <h1>Come lavorerebbe il tuo assistente</h1>
+  <p>Per Silvana. Nove situazioni inventate, con un candidato che non esiste: Jonas, da Berlino. Siamo a febbraio: le candidature sono aperte. Le schermate sono finte, ma sono quelle che vedresti davvero.</p>
+</header>
+
+<div class="intro">
+  <p><b>Come funziona questa pagina.</b> Leggi ogni situazione e tocca i pulsanti: fanno finta di funzionare. Sotto ogni situazione c'è una casella: scrivi cosa ne pensi, anche due parole, e tocca <b>Salva</b>. Le risposte arrivano ad Alessandro.</p>
+  <p>Niente è obbligatorio, e puoi farlo in più volte. Se una cosa non ti torna, scrivilo: serve proprio a questo.</p>
+</div>
+
+<!-- 1 -->
+<section id="s1">
+  <div class="num">1 di 9</div>
+  <h2>Arriva una candidatura</h2>
+  <p>Jonas compila il form sul sito. Il sistema controlla che ci siano bio e i due video, lo registra e ti avvisa. Tu ricevi questo sul telefono. È RE.SEARCH, quindi tu fai il primo filtro e Andrea decide.</p>
+  <div class="phone"><div class="screen">
+    <div class="bar"><span>9:41</span><span>●●●</span></div>
+    <div class="app">
+      <div class="notif"><div class="ic">M</div><div><b>Candidatura da valutare</b><small>Jonas W. · RE.SEARCH Session B · completa</small></div></div>
+      <div class="card">
+        <span class="tag">Candidatura</span>
+        <h4>Jonas Weber, 23</h4>
+        <div class="meta">Berlino · RE.SEARCH Session B (gennaio–marzo)</div>
+        <p style="font-size:14px;margin:8px 0 0">Formazione a Berlino e Rotterdam, due anni in una compagnia giovanile. Cerca un percorso di ricerca coreografica con autori internazionali.</p>
+        <div class="vid"><span>Improvvisazione · 2:40</span></div>
+        <div class="vid"><span>Coreografia · 3:15</span></div>
+        <div class="btns" data-group="d1">
+          <button data-r="Fatto: Jonas è nel file che condividi con Andrea, e Andrea ha ricevuto la mail con i link. Ti avviso quando decide.">Passa ad Andrea</button>
+          <button class="sec" data-r="Segnato: non adatto. Ti preparo la risposta per Jonas.">Non adatto</button>
+          <button class="sec" data-r="Ti preparo la mail per chiedergli altro materiale.">Chiedi altro materiale</button>
+        </div>
+        <div class="result" hidden></div>
+      </div>
+    </div>
+  </div></div>
+  <p class="why">Vedi solo quello che serve per decidere. Le candidature incomplete non ti arrivano: il sistema chiede da solo cosa manca. Se Jonas fosse ICD, i pulsanti sarebbero "Ammesso / Non ammesso" e la decisione sarebbe solo tua. Se Andrea non risponde entro 5 giorni, il sistema glielo ricorda; a 10 avvisa te.</p>
+  <div class="fb" data-sec="1. Arriva una candidatura">
+    <label for="t1">Ti basta questa schermata per decidere? Cosa vorresti in più, o in meno?</label>
+    <textarea id="t1"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <div class="num">2 di 9</div>
+  <h2>La risposta è già scritta</h2>
+  <p>Tre giorni dopo Andrea segna "sì" sul vostro file. Il sistema ti avvisa e nelle Bozze della tua Gmail trovi già questa mail, nella conversazione con Jonas.</p>
+  <div class="phone"><div class="screen">
+    <div class="bar"><span>9:43</span><span>●●●</span></div>
+    <div class="app">
+      <div class="mail">
+        <div class="hd"><span class="from">Bozza · a Jonas Weber</span><span>Re: Application</span></div>
+        <div class="body">Dear Jonas,
+
+I hope you're doing well.
+
+I'm very pleased to let you know that our artistic director, Andrea, has reviewed your application and is happy to offer you a place in the Re.search Professional Dance Program – Session B (January–March).
+
+To proceed, let's talk on Zoom: pick a time that works for you here: <a>nod.link/zoom</a>. You'll receive a short info pack before the call.
+
+Please confirm that you have received this email and that you are still interested.
+
+Warm regards,
+Silvana</div>
+        <div class="btns" data-group="d2">
+          <button data-r="Inviata. Da oggi il sistema conta i giorni per la risposta di Jonas.">Invia</button>
+          <button class="sec" data-r="Puoi cambiare quello che vuoi, poi la mandi.">Modifica</button>
+        </div>
+        <div class="result" hidden></div>
+      </div>
+    </div>
+  </div></div>
+  <p class="why">Il testo base è il tuo, quello che usi oggi. Il sistema lo adatta al candidato e mette i dati giusti: sessione, date, link per prenotare. Niente prezzi, come fai tu. La mail parte solo quando la mandi tu.</p>
+  <div class="fb" data-sec="2. La risposta è già scritta">
+    <label for="t2">Va bene che la mail parta solo quando la mandi tu? C'è qualcosa che vorresti fosse sempre dentro, o mai?</label>
+    <textarea id="t2"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <div class="num">3 di 9</div>
+  <h2>Jonas non risponde</h2>
+  <p>Jonas non risponde. Il sistema tiene il conto dei giorni al posto tuo.</p>
+  <div class="phone"><div class="screen">
+    <div class="bar"><span>Diario</span><span>●●●</span></div>
+    <div class="app">
+      <ul class="tl">
+        <li><b>Giorno 0</b><span>Mail di ammissione inviata da te.</span></li>
+        <li><b>Giorno 3</b><span>Nessuna risposta. Il sistema aspetta: non ti disturba.</span></li>
+        <li><b>Giorno 7</b><span class="auto">Sollecito inviato automaticamente, con il testo che hai approvato una volta: "Hi Jonas, just checking you received our email. Are you still interested?"</span></li>
+        <li><b>Giorno 9</b><span>Jonas: "Sorry, yes! I'm in." Il sistema capisce che conferma l'interesse e ti chiede: giusto? <b style="color:var(--ok)">Sì</b></span></li>
+        <li><b>Giorno 9</b><span class="auto">Nelle tue Bozze: la mail con il modulo di iscrizione e le istruzioni per la prima rata. Il posto sarà suo quando arrivano modulo firmato e ricevuta.</span></li>
+      </ul>
+    </div>
+  </div></div>
+  <p class="why">Siamo a febbraio, quindi la finestra è di 7 giorni; dopo aprile sarebbe di 48 ore, come fai tu. Il sollecito parte da solo perché è sempre uguale ed è un testo tuo; il cambio di stato invece te lo chiede, perché una mail può essere ambigua.</p>
+  <div class="fb" data-sec="3. Jonas non risponde">
+    <label for="t3">Va bene che il sollecito parta da solo? Con quali parole lo scriveresti tu?</label>
+    <textarea id="t3"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <div class="num">4 di 9</div>
+  <h2>Jonas chiede una cosa fuori dalle regole</h2>
+  <p>Jonas ha ricevuto il modulo e risponde con una domanda. Il sistema legge la mail, capisce che chiede un'eccezione, e ti porta la regola, la differenza e le opzioni.</p>
+  <div class="phone"><div class="screen">
+    <div class="bar"><span>18:02</span><span>●●●</span></div>
+    <div class="app">
+      <div class="mail">
+        <div class="hd"><span class="from">Jonas Weber</span><span>gio 18:01</span></div>
+        <div class="body">Thank you! One question before I sign: could I pay in 5 instalments? My scholarship only arrives in November.</div>
+      </div>
+      <div class="card">
+        <span class="tag warn">Decisione per te</span>
+        <h4>Jonas chiede 5 rate</h4>
+        <div class="meta">Regola: prima rata alla conferma, le altre alle scadenze standard dell'anno. Lui chiede una rata in più, l'ultima a novembre.</div>
+        <div class="btns" data-group="d3">
+          <button data-r="Ti preparo la risposta con le rate standard.">A · Rate standard</button>
+          <button class="sec" data-r="Ti preparo la risposta con 5 rate, ultima a novembre. Segno l'eccezione nella sua scheda.">B · Accetta 5 rate</button>
+          <button class="sec" data-r="Ti preparo due righe: ne parlate allo Zoom.">C · Ne parlo allo Zoom</button>
+        </div>
+        <div class="result" hidden></div>
+      </div>
+    </div>
+  </div></div>
+  <p class="why">Il sistema non decide mai su soldi o eccezioni. Ti mostra la regola e le opzioni, tu tocchi una lettera, e l'eccezione resta scritta: fra sei mesi si sa cosa è stato concesso a chi.</p>
+  <div class="fb" data-sec="4. Jonas chiede una cosa fuori dalle regole">
+    <label for="t4">Ti aiuta vederla così? Quali richieste fuori regola ti capitano davvero?</label>
+    <textarea id="t4"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <div class="num">5 di 9</div>
+  <h2>Lo Zoom si prenota da solo</h2>
+  <p>Torniamo alla mail di ammissione: c'era il link per prenotare. Jonas lo apre, vede i tuoi orari liberi nell'orario di Berlino e sceglie. Tu decidi una volta sola in quali fasce ricevi.</p>
+  <div class="phone"><div class="screen">
+    <div class="bar"><span>Prenota</span><span>●●●</span></div>
+    <div class="app">
+      <div class="card">
+        <h4>Chiamata con Silvana · 30 min</h4>
+        <div class="meta">Orari mostrati nel fuso di Berlino</div>
+        <div class="slots" data-group="d5">
+          <button data-r="Prenotato: martedì 17:30. Nel tuo calendario c'è già l'evento con il link della chiamata. Jonas riceve la conferma e, il giorno prima, il pacchetto informativo.">mar 17:30</button>
+          <button data-r="Prenotato: martedì 18:00. Evento nel tuo calendario, conferma a Jonas, pacchetto informativo il giorno prima.">mar 18:00</button>
+          <button data-r="Prenotato: giovedì 17:30. Evento nel tuo calendario, conferma a Jonas, pacchetto informativo il giorno prima.">gio 17:30</button>
+          <button data-r="Prenotato: giovedì 18:30. Evento nel tuo calendario, conferma a Jonas, pacchetto informativo il giorno prima.">gio 18:30</button>
+        </div>
+        <div class="result" hidden></div>
+      </div>
+      <div class="mail" style="margin-top:10px">
+        <div class="hd"><span class="from">Prima della nostra chiamata</span><span>automatica</span></div>
+        <div class="body">Hi Jonas, before we talk on Thursday, here is what most people ask: tuition and payment plan for Session B, accommodation and our trusted landlords, visa steps for non-EU students, daily schedule. → <a>info pack</a>
+
+See you on Zoom!</div>
+      </div>
+    </div>
+  </div></div>
+  <p class="why">Sparisce lo scambio "quando puoi?". Il fuso orario lo gestisce la pagina. Le cose che oggi ripeti a ogni chiamata arrivano prima, scritte una volta da te (o in un video di 5 minuti tuo): lo Zoom serve alle domande di quella persona.</p>
+  <div class="fb" data-sec="5. Lo Zoom si prenota da solo">
+    <label for="t5">In quali giorni e orari vorresti ricevere? Cosa ripeti sempre allo Zoom che potremmo mandare prima?</label>
+    <textarea id="t5"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <div class="num">6 di 9</div>
+  <h2>Arriva la ricevuta</h2>
+  <p>Jonas manda modulo firmato e ricevuta della prima rata. Il sistema li riconosce e li attacca alla sua scheda. "Verificato" lo metti solo tu, quando hai guardato il conto.</p>
+  <div class="phone"><div class="screen">
+    <div class="bar"><span>Situazione</span><span>●●●</span></div>
+    <div class="app">
+      <div class="card">
+        <span class="tag ok">Ricevuta arrivata</span>
+        <h4>Jonas · prima rata</h4>
+        <div class="meta">Modulo firmato ✓ · Ricevuta PDF ✓ · Conto: da controllare</div>
+        <div class="btns" data-group="d6">
+          <button data-r="Verificato. Jonas è iscritto: Session B, gruppo 1. Posti: 21 su 25. La prossima rata ha la sua scadenza: promemoria automatico a Jonas 7 giorni prima.">Ho controllato il conto: verificato</button>
+        </div>
+        <div class="result" hidden></div>
+      </div>
+      <div class="stat">
+        <div><b>20/25</b><small>posti Session B</small></div>
+        <div><b>3</b><small>in attesa di risposta</small></div>
+        <div><b>2</b><small>rate in scadenza</small></div>
+        <div><b>1</b><small>ricevuta da verificare</small></div>
+      </div>
+    </div>
+  </div></div>
+  <p class="why">Questa è l'unica "vista" del sistema: quattro numeri, aggiornati da soli. Quando qui è tutto a zero, non devi ricordarti niente. Le ricevute finiscono sempre nella conversazione giusta e il residuo si aggiorna da solo. I gruppi si riempiono per ordine di arrivo: pieno il gruppo 1, si passa al 2.</p>
+  <div class="fb" data-sec="6. Arriva la ricevuta">
+    <label for="t6">Chi controlla il conto e quando? Ti servirebbe altro in questa vista?</label>
+    <textarea id="t6"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <div class="num">7 di 9</div>
+  <h2>Chiedere all'assistente</h2>
+  <p>Non tutto è previsto. Quando vuoi una cosa, la scrivi per mail dalla tua Gmail a un indirizzo in più, che è sempre il tuo: <b>dancenod+ai@gmail.com</b>. Puoi dettare col microfono. La risposta arriva nella stessa conversazione.</p>
+  <div class="phone"><div class="screen">
+    <div class="bar"><span>Gmail</span><span>●●●</span></div>
+    <div class="app">
+      <div class="mail">
+        <div class="hd"><span class="from">Tu → dancenod+ai</span><span>11:20</span></div>
+        <div class="body">questa mail di jonas è confusa, rispondigli che il visto lo vediamo insieme allo zoom e che intanto mi mandi copia del passaporto</div>
+      </div>
+      <div class="mail" style="margin-top:8px">
+        <div class="hd"><span class="from">Assistente</span><span>11:23</span></div>
+        <div class="body">Bozza pronta nelle tue Bozze, nella conversazione con Jonas:
+
+"Hi Jonas, no worries: we'll go through the visa steps together on our Zoom. In the meantime, could you send me a copy of your passport? Thank you!"
+
+Vuoi che la accorci o la cambi?</div>
+      </div>
+      <div class="mail" style="margin-top:8px">
+        <div class="hd"><span class="from">Tu</span><span>11:24</span></div>
+        <div class="body">più corta</div>
+      </div>
+      <div class="mail" style="margin-top:8px">
+        <div class="hd"><span class="from">Assistente</span><span>11:25</span></div>
+        <div class="body">"Hi Jonas, we'll sort the visa out on Zoom. Could you send me a copy of your passport meanwhile? Thanks!"</div>
+      </div>
+    </div>
+  </div></div>
+  <p class="why">L'assistente conosce le tue regole, i tuoi testi e la situazione di ogni candidato. Prepara e propone; non manda mai niente da solo e non cambia mai uno stato senza chiedertelo. Per tradurre o sistemare mail che non riguardano NOD continui a usare ChatGPT.</p>
+  <div class="fb" data-sec="7. Chiedere all'assistente">
+    <label for="t7">Cosa gli chiederesti per prima cosa? Preferiresti scrivergli per mail, in una pagina, o a voce?</label>
+    <textarea id="t7"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <div class="num">8 di 9</div>
+  <h2>Come farlo funzionare, e cosa costa</h2>
+  <p>Tre modi. Te li spiego senza tecnicismi.</p>
+  <div class="opts">
+    <div class="opt rec">
+      <h3>A. Vive nella tua Gmail, con un "cervello" a consumo</h3>
+      <div class="cost">Da 3 a 8 € al mese, con un tetto fisso di 10 €</div>
+      <p>Il sistema sta dentro il tuo account Google, che è gratis, e lavora sempre: anche di notte, anche a computer spento. Quando deve capire una mail o scrivere una bozza chiama un'intelligenza artificiale e paga solo quel lavoro, come una bolletta della luce. È quello che consigliamo: non dipende da nessun computer e da nessuno di noi. L'abbonamento Claude che già c'è serve ad Alessandro per costruirlo, non per farlo funzionare.</p>
+    </div>
+    <div class="opt">
+      <h3>B. Un abbonamento a Claude sul tuo computer</h3>
+      <div class="cost">Circa 20 € al mese</div>
+      <p>Una chat a cui chiedere le cose, come ChatGPT. Risponde bene, ma solo se le scrivi: non si ricorda le scadenze, non manda solleciti, non conta i posti. Può affiancare A per i testi, non sostituirla.</p>
+    </div>
+    <div class="opt">
+      <h3>C. Un computer sempre acceso in sede</h3>
+      <div class="cost">La corrente, più il computer se non c'è già</div>
+      <p>Fa tutto quello che fa A e qualcosa in più, per esempio trascrivere i vocali WhatsApp. In cambio è una macchina da tenere accesa e curata: se si spegne, si ferma tutto. Ha senso come aggiunta, più avanti.</p>
+    </div>
+  </div>
+  <div class="fb" data-sec="8. Come farlo funzionare, e cosa costa">
+    <label for="t8">Quale ti sembra più sensata? Ti va bene una spesa di circa 5 € al mese?</label>
+    <textarea id="t8"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <div class="num">9 di 9</div>
+  <h2>Per finire</h2>
+  <p>Tre domande aperte. Rispondi come ti viene.</p>
+  <div class="fb" data-sec="9a. Cosa ti preoccupa">
+    <label for="t9a">Cosa ti preoccupa di tutto questo? Cosa non vorresti mai che facesse?</label>
+    <textarea id="t9a"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+  <div class="fb" data-sec="9b. Cosa manca">
+    <label for="t9b">Cosa manca? Quale situazione capita spesso e qui non c'è?</label>
+    <textarea id="t9b"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+  <div class="fb" data-sec="9c. Tempo">
+    <label for="t9c">A occhio, quanto tempo ti farebbe risparmiare in una settimana piena?</label>
+    <textarea id="t9c"></textarea>
+    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+  </div>
+</section>
+
+<footer>Fine. Grazie. Puoi tornare qui quando vuoi e aggiungere altro: ogni Salva arriva ad Alessandro.</footer>
+</div>
+
+<script>
+(function(){
+  var FORM='https://docs.google.com/forms/d/e/1FAIpQLSfLqqJR4yuN4ne7odnKFgtimuqfAqT8KbL9AVcKcs8OIaDRMw/formResponse';
+  var F_SEC='entry.442569314', F_TXT='entry.477559920';
+
+  // mock buttons
+  document.querySelectorAll('[data-group]').forEach(function(g){
+    var res=g.parentElement.querySelector('.result');
+    g.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        g.querySelectorAll('button').forEach(function(x){x.classList.remove('pick')});
+        b.classList.add('pick');
+        if(res){res.textContent=b.getAttribute('data-r');res.hidden=false;}
+      });
+    });
+  });
+
+  // feedback boxes
+  document.querySelectorAll('.fb').forEach(function(fb){
+    var sec=fb.getAttribute('data-sec'), ta=fb.querySelector('textarea'), bt=fb.querySelector('button'), st=fb.querySelector('.state');
+    var key='nod-demo:'+sec;
+    try{var saved=localStorage.getItem(key); if(saved){ta.value=saved; st.className='state ok'; st.textContent='Salvato';}}catch(e){}
+    ta.addEventListener('input',function(){bt.disabled=!ta.value.trim(); st.textContent='';st.className='state';});
+    bt.addEventListener('click',function(){
+      var text=ta.value.trim(); if(!text) return;
+      bt.disabled=true; st.className='state'; st.textContent='Salvo…';
+      var fd=new FormData(); fd.append(F_SEC,sec); fd.append(F_TXT,text);
+      fetch(FORM,{method:'POST',mode:'no-cors',body:fd}).then(function(){
+        st.className='state ok'; st.textContent='Salvato';
+        try{localStorage.setItem(key,text);}catch(e){}
+      }).catch(function(){
+        st.className='state err'; st.textContent='Non salvato: controlla la connessione e riprova';
+        bt.disabled=false;
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
