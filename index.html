@@ -77,6 +77,13 @@ section{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 .opt .cost{font:700 13px Lato;color:var(--accent);margin-bottom:6px}
 .opt p{font-size:16px;margin:0}
 .opt.rec{border-color:var(--accent);background:var(--accent-soft)}
+.opt ul{margin:8px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.opt li{font-size:15px;line-height:1.45;display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:start}
+.opt li i{font-style:normal;font-weight:700}
+.opt li.yes i{color:var(--ok)}
+.opt li.no i{color:#b3261e}
+.opt .who{font:700 12px Lato;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.note{font-size:15px;color:var(--muted);background:var(--bg);border-radius:8px;padding:12px 14px}
 /* feedback */
 .fb{border-top:1px dashed var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px;font-family:Lato,system-ui,sans-serif}
 .fb label{font-weight:700;font-size:16px}
@@ -347,27 +354,45 @@ Vuoi che la accorci o la cambi?</div>
 <!-- 8 -->
 <section id="s8">
   <div class="num">8 di 9</div>
-  <h2>Come farlo funzionare, e cosa costa</h2>
-  <p>Tre modi. Te li spiego senza tecnicismi. Noi proponiamo A e B insieme: A per quello che deve scattare da solo, B per tutto il resto.</p>
+  <h2>Chi fa cosa, e cosa costa</h2>
+  <p>Quello che hai visto finora è fatto da due pezzi diversi, e puoi avere il primo da solo oppure tutti e due.</p>
+  <p><b>L'assistente</b> è Claude sul tuo computer: capisce le mail, scrive le bozze, risponde alle tue domande. Usa l'abbonamento che NOD paga già, quindi non costa niente in più. Lavora quando il computer è acceso.</p>
+  <p><b>Il pilota automatico</b> non sta su nessun computer: sta dentro il tuo account Google e non si spegne mai. Non scrive e non capisce niente: conta i giorni, tiene il conto dei posti, manda i solleciti e ti avvisa. Costa fra i 3 e gli 8 euro al mese, come una bolletta piccola, e si può mettere un tetto di 10.</p>
+
   <div class="opts">
-    <div class="opt rec">
-      <h3>A. Vive nella tua Gmail, con un "cervello" a consumo</h3>
-      <div class="cost">Da 3 a 8 € al mese, con un tetto fisso di 10 €</div>
-      <p>Il sistema sta dentro il tuo account Google, che è gratis, e lavora sempre: anche di notte, anche a computer spento. Quando deve capire una mail o scrivere una bozza chiama un'intelligenza artificiale e paga solo quel lavoro, come una bolletta della luce. È la parte che conta i giorni, manda i solleciti e ricorda le rate.</p>
-    </div>
-    <div class="opt rec">
-      <h3>B. Claude sul tuo computer, con l'abbonamento NOD che c'è già</h3>
-      <div class="cost">Già pagato</div>
-      <p>Sul tuo Mac si installa Claude, che legge la posta di dancenod da Mail e prepara bozze, risposte e checklist. Puoi parlarci direttamente, e fa anche cose che Google non può fare, per esempio trascrivere i vocali. Lavora quando il computer è acceso: per questo le cose che devono scattare da sole le lasciamo ad A.</p>
-    </div>
     <div class="opt">
-      <h3>C. Un computer sempre acceso in sede</h3>
-      <div class="cost">La corrente, più il computer se non c'è già</div>
-      <p>Come B, ma su una macchina che non si spegne mai. In cambio è un computer da tenere acceso e curato: se si spegne, si ferma tutto. Ha senso solo se non vogliamo A.</p>
+      <h3>Solo l'assistente</h3>
+      <div class="cost">Nessuna spesa in più</div>
+      <ul>
+        <li class="yes"><i>✓</i> Gli chiedi di scrivere una risposta e te la prepara, anche partendo da un vocale</li>
+        <li class="yes"><i>✓</i> Gli chiedi "a che punto è Jonas" e te lo dice</li>
+        <li class="no"><i>✕</i> La candidatura di Jonas la vedi quando apri il computer, non appena arriva</li>
+        <li class="no"><i>✕</i> I 7 giorni di Jonas li conti tu, come adesso</li>
+        <li class="no"><i>✕</i> Il sollecito parte quando te ne ricordi</li>
+        <li class="no"><i>✕</i> Il promemoria della rata lo devi ricordare tu</li>
+      </ul>
+      <div class="who">In pratica: un aiuto per scrivere e cercare. La memoria resta tua.</div>
+    </div>
+
+    <div class="opt rec">
+      <h3>L'assistente più il pilota automatico</h3>
+      <div class="cost">Da 3 a 8 euro al mese</div>
+      <ul>
+        <li class="yes"><i>✓</i> Tutto quello che c'è qui a fianco, uguale</li>
+        <li class="yes"><i>✓</i> La notifica della candidatura ti arriva appena arriva, anche la domenica</li>
+        <li class="yes"><i>✓</i> La bozza per Jonas è pronta in pochi minuti, anche se sei al telefono</li>
+        <li class="yes"><i>✓</i> Il sollecito del settimo giorno parte da solo, col testo che hai approvato</li>
+        <li class="yes"><i>✓</i> I posti si contano da soli, e i promemoria delle rate partono da soli</li>
+        <li class="yes"><i>✓</i> Funziona anche a computer spento, di notte e quando sei via</li>
+      </ul>
+      <div class="who">In pratica: le scene che hai appena visto funzionano tutte. È quello che ti consigliamo.</div>
     </div>
   </div>
-  <div class="fb" data-sec="8. Come farlo funzionare, e cosa costa">
-    <label for="t8">Ti torna? Ti va bene una spesa di circa 5 € al mese per la parte che gira da sola? Il tuo computer di giorno resta acceso?</label>
+
+  <div class="note">Se preferisci non avere nessuna spesa, al posto del pilota automatico si può tenere acceso giorno e notte un computer in sede, che fa le stesse cose. Funziona, ma basta che qualcuno lo spenga o che si aggiorni e i solleciti non partono, senza che nessuno se ne accorga.</div>
+
+  <div class="fb" data-sec="8. Chi fa cosa, e cosa costa">
+    <label for="t8">Quale dei due preferisci? E il tuo computer, di solito, resta acceso durante il giorno?</label>
     <textarea id="t8"></textarea>
     <div class="row"><button disabled>Salva</button><span class="state"></span></div>
   </div>
