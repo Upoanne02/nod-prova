@@ -156,6 +156,23 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
 .steps b{display:block;font:900 15px Lato;color:var(--accent);margin-bottom:6px}
 @media (max-width:620px){.duo,.zones,.steps{grid-template-columns:1fr}}
 
+
+.sendbox{border:2px solid var(--ok);background:var(--ok-bg);border-radius:14px;padding:24px clamp(16px,4vw,28px);display:flex;flex-direction:column;gap:14px;text-align:center;align-items:center}
+.sendbox h2{margin:0}
+.sendbox p{margin:0 auto}
+.big{font:900 22px/1.2 Lato,system-ui,sans-serif;background:var(--ok);color:#fff;border:0;border-radius:16px;padding:22px 28px;width:100%;max-width:440px;cursor:pointer;box-shadow:0 6px 0 #1f5135;display:flex;align-items:center;justify-content:center;gap:14px}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 #1f5135}
+.big:disabled{opacity:.6;cursor:default}
+.big .env{width:34px;height:24px;border:3px solid #fff;border-radius:4px;position:relative;flex:none}
+.big .env::before{content:"";position:absolute;left:3px;right:3px;top:-2px;height:14px;border-left:3px solid #fff;border-bottom:3px solid #fff;transform:skewY(-1deg) rotate(-45deg) scale(.7);transform-origin:center}
+.sendmsg{font:700 17px Lato,system-ui,sans-serif;border-radius:10px;padding:12px 16px;max-width:440px}
+.sendmsg.ok{background:#fff;color:var(--ok)}
+.sendmsg.err{background:#fbe9e7;color:#b3261e}
+.sendmsg[hidden]{display:none}
+.down{font-size:28px;color:var(--ok);line-height:1}
+.stick{position:sticky;bottom:0;z-index:5;background:var(--ink);color:#fff;border-radius:12px 12px 0 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;gap:12px;font:15px Lato,system-ui,sans-serif;margin-top:-20px}
+.stick a{background:var(--ok);color:#fff;text-decoration:none;font-weight:700;border-radius:10px;padding:10px 14px;white-space:nowrap}
+.stick[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -168,14 +185,14 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
 </header>
 
 <div class="intro">
-  <p><b>Come funziona questa pagina.</b> Leggi ogni idea e tocca i pulsanti: fanno finta di funzionare. Sotto ogni idea scrivi cosa ne pensi, anche due parole, e tocca <b>Salva</b>. Le risposte arrivano ad Alessandro.</p>
-  <p>Niente è obbligatorio, e puoi farlo in più volte.</p>
+  <p><b>Come funziona questa pagina.</b> Leggi le idee e tocca i pulsanti delle schermate: fanno finta di funzionare. Sotto ogni idea c'è un riquadro: scrivi cosa ne pensi, anche due parole. Si salva da solo.</p>
+  <p><b>Alla fine c'è un pulsante verde grande: premilo.</b> È quello che manda tutto ad Alessandro. Puoi farlo anche in più volte.</p>
 </div>
 
 <section id="s0">
   <div class="num">Prima di tutto</div>
   <h2>Cosa resta a te, cosa passa a lui</h2>
-  <p class="pitch">Ogni idea di questa pagina è un pezzo di lavoro che oggi fai tu e che l'assistente può preparare al posto tuo.</p>
+  <p class="pitch">Ogni idea di questa pagina è un pezzo di lavoro che oggi fai tu e che l'assistente può preparare al posto tuo. Il primo pezzo resta quello di settembre: le candidature e lo Zoom, con il pacchetto da mandare prima della chiamata che toglie le cose che oggi ripeti a sessanta persone.</p>
   <div class="duo">
     <div class="me"><h3>Resta a te</h3><ul>
       <li>Decidere chi ammettere</li>
@@ -198,21 +215,21 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
   <h2>Un giovedì qualunque</h2>
   <ul class="day">
     <li><b>8:00</b>Leggi la mail "Oggi": sai già le call, cosa c'è da decidere e le scadenze.</li>
-    <li><b>9:30</b>Mentre cammini dici al telefono "ricordami di chiamare il landlord venerdì". Finito.</li>
+    <li><b>9:30</b>Mentre cammini dici al telefono "ricordami venerdì alle 10 di chiamare il landlord". Finito.</li>
     <li><b>11:00</b>Nello spazio libero che ti ha segnato guardi i video di due candidature e decidi.</li>
     <li><b>13:00</b>Gli chiedi di rispondere in inglese a un artista. Rileggi e mandi.</li>
-    <li><b>16:25</b>Ti arriva il punto della situazione per la call delle 16:30.</li>
+    <li><b>16:25</b>Apri l'evento della call delle 16:30: dentro c'è già il punto della situazione.</li>
     <li><b>18:00</b>Chiudi il computer. Quello che resta lo ritrovi domattina nella mail.</li>
   </ul>
   <div class="fb" data-sec="P2 · 0. Una giornata con l'assistente">
     <label for="tday">Ti ci ritrovi? Com'è oggi una tua giornata tipo?</label>
     <textarea id="tday"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="s1">
-  <div class="num">Idea 1 di 8</div>
+  <div class="num">Idea 1 di 9</div>
   <h2>La tua giornata in una mail</h2>
   <p class="pitch">Alle 8 ti arriva tutto quello che serve sapere sulla giornata, in una schermata.</p>
   <div class="phone"><div class="screen">
@@ -234,64 +251,65 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
 11:00–13:00, buono per guardare i video</div>
     </div></div>
   </div></div>
-  <div class="cmp"><div class="old"><b>Oggi</b>Apri mail, calendario, WhatsApp e il file delle candidature per capire cosa c'è da fare.</div><div class="new"><b>Con l'assistente</b>Una mail, un minuto. Se non c'è niente, te lo dice in una riga.</div></div>
+  <div class="cmp"><div class="old"><b>Oggi</b>Apri la posta, il calendario e il file delle candidature per capire cosa c'è da fare.</div><div class="new"><b>Con l'assistente</b>Una mail, un minuto. Se non c'è niente, te lo dice in una riga.</div></div>
   <div class="fb" data-sec="P2 · 1. La giornata in una mail">
     <label for="t1">Ti servirebbe? Come la vorresti?</label>
     <textarea id="t1"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="s2">
-  <div class="num">Idea 2 di 8</div>
+  <div class="num">Idea 2 di 9</div>
   <h2>Fissare una call parlando</h2>
-  <p class="pitch">Dal telefono dici chi, quando e perché. Guarda il tuo calendario e ti propone gli orari.</p>
+  <p class="pitch">Dal telefono dici chi, quando e perché. Guarda il calendario NOD e ti propone gli orari.</p>
   <div class="phone"><div class="screen">
     <div class="bar"><span>Claude</span><span>●●●</span></div>
     <div class="app"><div class="chat">
       <div class="bub me"><small>a voce</small>fissami mezz'ora con Andrea la settimana prossima per parlare dei coreografi</div>
-      <div class="bub ai">Sei libera martedì alle 10, mercoledì alle 15:30 o giovedì alle 11. Quale preferisci? L'invito ad Andrea lo mando io.</div>
+      <div class="bub ai">Sei libera martedì alle 10, mercoledì alle 15:30 o giovedì alle 11. Quando scegli, mando l'invito ad Andrea.</div>
       <div class="btns" data-group="g2">
-        <button data-r="Fatto: la call è nel tuo calendario con il link, e Andrea ha ricevuto l'invito.">martedì 10:00</button>
-        <button class="sec" data-r="Fatto: la call è nel tuo calendario con il link, e Andrea ha ricevuto l'invito.">mercoledì 15:30</button>
-        <button class="sec" data-r="Fatto: la call è nel tuo calendario con il link, e Andrea ha ricevuto l'invito.">giovedì 11:00</button>
+        <button data-r="Fatto: la call è nel calendario NOD con il link. L'invito ad Andrea è partito perché hai scelto tu l'orario.">martedì 10:00</button>
+        <button class="sec" data-r="Fatto: la call è nel calendario NOD con il link. L'invito ad Andrea è partito perché hai scelto tu l'orario.">mercoledì 15:30</button>
+        <button class="sec" data-r="Fatto: la call è nel calendario NOD con il link. L'invito ad Andrea è partito perché hai scelto tu l'orario.">giovedì 11:00</button>
       </div>
       <div class="result" hidden></div>
     </div></div>
   </div></div>
-  <div class="cmp"><div class="old"><b>Oggi</b>Messaggi avanti e indietro per trovare un orario, e il fuso orario da calcolare.</div><div class="new"><b>Con l'assistente</b>Una frase, scegli l'orario, fatto. Le sere e i weekend restano liberi, se non li apri tu.</div></div>
+  <div class="cmp"><div class="old"><b>Oggi</b>Messaggi avanti e indietro per trovare un orario, e il fuso orario da calcolare.</div><div class="new"><b>Con l'assistente</b>Una frase, scegli l'orario, fatto. Le sere e i weekend restano liberi, se non li apri tu. I tuoi impegni personali non li vede: quelli che contano li mettiamo anche nel calendario NOD.</div></div>
   <div class="fb" data-sec="P2 · 2. Fissare una call parlando">
     <label for="t2">Ti servirebbe? Come la vorresti?</label>
     <textarea id="t2"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="s3">
-  <div class="num">Idea 3 di 8</div>
+  <div class="num">Idea 3 di 9</div>
   <h2>Niente più cose in testa</h2>
   <p class="pitch">Quello che oggi ti tieni a mente lo dici una volta al telefono, e ti torna quando serve. Tocca le frasi.</p>
   <div class="dict">
     <button>"ricordami venerdì alle 9 di chiamare il landlord"<span hidden>Nel tuo Calendario, venerdì alle 9, con l'avviso.</span></button>
-    <button>"ricordami di comprare i nastri per la sala"<span hidden>Nella tua app Promemoria.</span></button>
-    <button>"ricordami fra un mese di risentire quel coreografo per l'anno prossimo"<span hidden>Nel Calendario fra un mese, con il riassunto di cosa vi eravate detti.</span></button>
+    <button>"ricordami di comprare i nastri per la sala"<span hidden>Nella tua app Promemoria, se il Mac è aperto. Se è chiuso, dettalo con un giorno e un'ora e finisce nel calendario NOD.</span></button>
+    <button>"dopo la riunione: abbiamo deciso le date di marzo, Chiara prepara il post, io sento Andrea entro venerdì"<span hidden>Ti prepara l'elenco di decisioni e compiti, con chi fa cosa e quando, e il messaggio di riepilogo per chi c'era. Lo rileggi e lo mandi tu.</span></button>
+    <button>"ricordami fra un mese di risentire quel coreografo per l'anno prossimo"<span hidden>Nel calendario NOD fra un mese, con il riassunto delle vostre mail.</span></button>
   </div>
   <div class="cmp"><div class="old"><b>Oggi</b>Te lo ricordi tu, o te lo scrivi da qualche parte e poi lo cerchi.</div><div class="new"><b>Con l'assistente</b>Lo dici, finisce nelle app che usi già, e ti torna con il contesto.</div></div>
   <div class="fb" data-sec="P2 · 3. Niente più cose in testa">
     <label for="t3">Ti servirebbe? Come la vorresti?</label>
     <textarea id="t3"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="s4">
-  <div class="num">Idea 4 di 8</div>
+  <div class="num">Idea 4 di 9</div>
   <h2>Prima di ogni call, il punto della situazione</h2>
-  <p class="pitch">Cinque minuti prima di una chiamata ti arriva un riassunto: con chi parli, dove eravate rimasti, cosa chiedere.</p>
+  <p class="pitch">Ogni call nel calendario NOD ha già dentro il punto della situazione: con chi parli, dove eravate rimasti nelle mail, cosa chiedere. Lo trovi anche nella mail del mattino.</p>
   <div class="phone"><div class="screen">
     <div class="bar"><span>16:25</span><span>●●●</span></div>
     <div class="app"><div class="card">
-      <span class="tag">Fra 5 minuti</span>
+      <span class="tag">Nell'evento</span>
       <h4>Call con un'artista ospite</h4>
       <div class="meta" style="font-size:14px;line-height:1.5;color:#333">
       <b>Ultimo contatto:</b> tre settimane fa, le avevi proposto due settimane a marzo.<br>
@@ -303,12 +321,36 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
   <div class="fb" data-sec="P2 · 4. Il punto prima delle call">
     <label for="t4">Ti servirebbe? Come la vorresti?</label>
     <textarea id="t4"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
+  </div>
+</section>
+
+<section id="s4b">
+  <div class="num">Idea 5 di 9</div>
+  <h2>Il fascicolo di ogni artista ospite</h2>
+  <p class="pitch">Per ogni artista che arriva, una scheda sola con tutto: cosa è già deciso, cosa è ancora aperto, cosa manca. La tiene aggiornata leggendo le mail.</p>
+  <div class="phone"><div class="screen">
+    <div class="bar"><span>Fascicolo</span><span>●●●</span></div>
+    <div class="app"><div class="card">
+      <span class="tag">Artista ospite · marzo</span>
+      <h4>Una coreografa da Bruxelles</h4>
+      <div class="meta" style="font-size:14px;line-height:1.55;color:#333">
+      <b style="color:var(--ok)">Deciso:</b> due settimane dal 2 marzo, compenso standard, appartamento di via Po.<br>
+      <b style="color:var(--warn)">Aperto:</b> volo (aspetta la città di partenza), esigenze di sala.<br>
+      <b>Manca:</b> bio e foto per la comunicazione, contratto firmato.<br>
+      <b>Ultima conferma:</b> la sua mail del 14 ottobre.</div>
+    </div></div>
+  </div></div>
+  <div class="cmp"><div class="old"><b>Oggi</b>Cinque mail e due chat per ricostruire a che punto sei con un artista.</div><div class="new"><b>Con l'assistente</b>Una scheda, sempre aggiornata. Quando gli chiedi "a che punto siamo con lei?", risponde da lì.</div></div>
+  <div class="fb" data-sec="P2 · 5b. Il fascicolo dell'artista">
+    <label for="t4b">Ti servirebbe? Come la vorresti?</label>
+    <textarea id="t4b"></textarea>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="s5">
-  <div class="num">Idea 5 di 8</div>
+  <div class="num">Idea 6 di 9</div>
   <h2>Il mondo della danza, scelto per te</h2>
   <p class="pitch">Una volta a settimana, una mail su quello che succede nel tuo mondo e che riguarda NOD.</p>
   <div class="phone"><div class="screen">
@@ -328,18 +370,18 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
 <span class="ph">un'artista passata da NOD debutta con un lavoro nuovo: spunto per un post</span></div>
     </div></div>
   </div></div>
-  <div class="cmp"><div class="old"><b>Oggi</b>Lo scopri per caso, o quando ormai è tardi.</div><div class="new"><b>Con l'assistente</b>Te lo trovi il venerdì, già scelto, in cinque minuti di lettura.</div></div>
+  <div class="cmp"><div class="old"><b>Oggi</b>Lo scopri per caso, o quando ormai è tardi.</div><div class="new"><b>Con l'assistente</b>Te lo trovi il venerdì, già scelto, con il link alla fonte. Date e scadenze le controlli sul sito prima di muoverti.</div></div>
   <div class="fb" data-sec="P2 · 5. Il mondo della danza">
     <label for="t5">Cosa ti interessa di più? Ci sono riviste, festival o siti che segui già?</label>
     <textarea id="t5"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="s6">
-  <div class="num">Idea 6 di 8</div>
+  <div class="num">Idea 7 di 9</div>
   <h2>Gli artisti da tenere d'occhio</h2>
-  <p class="pitch">Vedi uno spettacolo o senti un nome: dici "segnati questo coreografo". Tiene la lista con le tue note e ti avvisa quando va in scena vicino.</p>
+  <p class="pitch">Vedi uno spettacolo o senti un nome: dici "segnati questo coreografo". Tiene la lista con le tue note e una volta al mese controlla dove vanno in scena.</p>
   <div class="phone"><div class="screen">
     <div class="bar"><span>La tua lista</span><span>●●●</span></div>
     <div class="app">
@@ -347,16 +389,16 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
       <div class="card"><h4>Un collettivo segnalato da Andrea</h4><div class="meta">La tua nota: "vedere un loro lavoro dal vivo". Laboratorio aperto a Milano a febbraio.</div></div>
     </div>
   </div></div>
-  <div class="cmp"><div class="old"><b>Oggi</b>I nomi te li ricordi, o te li segni in posti diversi.</div><div class="new"><b>Con l'assistente</b>Una lista tua, sempre aggiornata, pronta quando prepari la programmazione. Non dà voti e non sceglie.</div></div>
+  <div class="cmp"><div class="old"><b>Oggi</b>I nomi te li ricordi, o te li segni in posti diversi.</div><div class="new"><b>Con l'assistente</b>Una lista tua, con le tue note, pronta quando prepari la programmazione. Non dà voti e non sceglie.</div></div>
   <div class="fb" data-sec="P2 · 6. Gli artisti da tenere d'occhio">
     <label for="t6">Ti servirebbe? Come la vorresti?</label>
     <textarea id="t6"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="s7">
-  <div class="num">Idea 7 di 8</div>
+  <div class="num">Idea 8 di 9</div>
   <h2>Scrivere al posto tuo, con la tua voce</h2>
   <p class="pitch">Gli dici cosa vuoi dire, lui lo scrive come lo scriveresti tu, in italiano o in inglese.</p>
   <div class="phone"><div class="screen">
@@ -367,16 +409,16 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
 Vuoi cambiare qualcosa?</div>
     </div></div>
   </div></div>
-  <div class="cmp"><div class="old"><b>Oggi</b>Scrivere, rileggere, tradurre, sistemare il tono.</div><div class="new"><b>Con l'assistente</b>Rileggere e mandare. Mail agli artisti, risposte ai candidati, testi per i bandi, i post per Chiara.</div></div>
+  <div class="cmp"><div class="old"><b>Oggi</b>Scrivere, rileggere, tradurre, sistemare il tono.</div><div class="new"><b>Con l'assistente</b>Rileggere e mandare. Mail agli artisti, risposte ai candidati, testi per i bandi, i post per Chiara. Date e compensi che non hai ancora deciso li lascia in bianco.</div></div>
   <div class="fb" data-sec="P2 · 7. Scrivere al posto tuo">
     <label for="t7">Ti servirebbe? Come la vorresti?</label>
     <textarea id="t7"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="s8">
-  <div class="num">Idea 8 di 8</div>
+  <div class="num">Idea 9 di 9</div>
   <h2>Pensare insieme</h2>
   <p class="pitch">Per le cose che non sono un compito: una ricerca, un'idea da sviluppare, un progetto da impostare.</p>
   <div class="chat">
@@ -390,96 +432,104 @@ Vuoi cambiare qualcosa?</div>
   <div class="fb" data-sec="P2 · 8. Pensare insieme">
     <label for="t8">Su cosa ti piacerebbe usarlo? Fammi un esempio di qualcosa che hai fatto di recente.</label>
     <textarea id="t8"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="sh1">
   <div class="num">Come funziona · 1</div>
   <h2>Telefono, computer, e la parte che lavora da sola</h2>
-  <p class="pitch">L'assistente sta in tre posti, e ognuno fa cose diverse.</p>
+  <p class="pitch">L'assistente sta in tre posti, e ognuno fa cose diverse. Legge la posta, il calendario e il Drive di NOD. WhatsApp, telefonate e incontri non li vede: quando un accordo l'hai preso lì, inoltragli il messaggio o dettagli due righe dopo la chiamata. Quando non è sicuro, te lo dice: "l'ultima conferma che trovo è la mail del 12 ottobre".</p>
   <div class="zones">
     <div class="zone"><div class="ico tel">TEL</div><h3>Il tuo telefono</h3><span class="pill on">Funziona sempre</span>
-      <ul><li>Chiedi, anche a voce</li><li>Ricevi le mail e gli avvisi</li><li>Approvi con un tocco</li><li>Fissi call e promemoria</li></ul></div>
+      <ul><li>Chiedi, anche a voce</li><li>Ricevi le mail e gli avvisi</li><li>Rileggi le bozze e decidi</li><li>Fissi call e promemoria con un orario</li></ul></div>
     <div class="zone"><div class="ico mac">MAC</div><h3>Il tuo Mac</h3><span class="pill cond">Solo se è aperto</span>
-      <ul><li>Lavora sui file del computer</li><li>Mette i promemoria senza orario</li><li>Fa le cose che gli chiedi dal telefono sul computer</li></ul></div>
+      <ul><li>Lavora sui documenti che hai sul Mac, quando sei al computer</li><li>Mette i promemoria senza orario nella tua app Promemoria</li></ul></div>
     <div class="zone"><div class="ico cl">NOD</div><h3>Online, sempre acceso</h3><span class="pill on">Anche di notte</span>
       <ul><li>Le mail del mattino, del lunedì, del venerdì</li><li>I controlli sulle candidature</li><li>Solleciti e scadenze</li><li>Lavora con la posta e il calendario NOD</li></ul></div>
   </div>
   <div class="closed">
     <div>Se chiudi il Mac o sei in viaggio</div>
     <div class="y"><i>✓</i>La mail del mattino arriva lo stesso</div>
-    <div class="y"><i>✓</i>Solleciti, scadenze e candidature continuano</div>
+    <div class="y"><i>✓</i>Le candidature e le scadenze continuano: i solleciti e le risposte vengono preparati e ti aspettano nelle Bozze</div>
     <div class="y"><i>✓</i>Dal telefono puoi chiedere tutto quello che riguarda posta e calendario</div>
-    <div class="n"><i>…</i>I promemoria senza orario arrivano quando lo riapri</div>
-    <div class="n"><i>…</i>Le cose da fare sui file del computer aspettano che lo riapri</div>
+    <div class="n"><i>…</i>I promemoria senza orario si dettano solo a Mac aperto: con un giorno e un'ora vanno nel calendario NOD</div>
+    <div class="n"><i>…</i>I documenti che hai solo sul Mac aspettano che lo riapri</div>
   </div>
   <div class="fb" data-sec="P2 · 11. Telefono e computer">
     <label for="th1">Il tuo Mac di solito resta aperto durante il giorno? Ti pesa doverlo tenere acceso?</label>
     <textarea id="th1"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
+  </div>
+</section>
+
+<section id="s9">
+  <div class="num">Come funziona · 2</div>
+  <h2>Come ti arriva tutto</h2>
+  <p class="pitch">Una mail ogni mattina, una sulla danza il venerdì, un calendario in più, e il telefono quando vuoi chiedere qualcosa. Niente da imparare.</p>
+  <div class="week">
+    <div><b>Lun</b><i>8:00 Oggi + la settimana</i></div>
+    <div><b>Mar</b><i>8:00 Oggi</i></div>
+    <div><b>Mer</b><i>8:00 Oggi</i></div>
+    <div><b>Gio</b><i>8:00 Oggi</i></div>
+    <div><b>Ven</b><i>8:00 Oggi</i><i>Danza</i></div>
+    <div class="off"><b>Sab</b>niente mail</div>
+    <div class="off"><b>Dom</b>niente mail</div>
+  </div>
+  <div class="opts">
+    <div class="opt"><h3>Nella posta</h3><p>La giornata ogni mattina; il lunedì anche la settimana, con la lista delle ricevute arrivate da confrontare con il conto; la danza il venerdì. Sabato e domenica niente mail: se una scadenza cade nel weekend, te lo dice il venerdì. Le ricevute di RE.SEARCH arrivano su un'altra casella: per ora non le vede.</p></div>
+    <div class="opt"><h3>Nel Calendario dell'iPhone</h3><p>Un calendario "NOD" in più, con le call e i promemoria che fissa per te. Quelle non serve segnarle anche nel tuo.</p></div>
+    <div class="opt"><h3>Nell'app Claude sul telefono</h3><p>Quando vuoi chiedere qualcosa, scrivendo o a voce.</p></div>
+  </div>
+  <div class="fb" data-sec="P2 · 13b. Come ti arriva tutto">
+    <label for="t9">Ti torna? È troppo, è poco? A che ora vuoi la mail del mattino? Vuoi qualcosa anche nel weekend?</label>
+    <textarea id="t9"></textarea>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="sh2">
-  <div class="num">Come funziona · 2</div>
+  <div class="num">Come funziona · 3</div>
   <h2>Le regole</h2>
   <ul class="rules">
-    <li><div><b>Decidi tu.</b>All'inizio niente parte verso candidati, artisti o Andrea senza il tuo ok. Quando ti fidi, scegli tu cosa lasciargli fare da solo.</div></li>
-    <li><div><b>Se non capisce, si ferma.</b>Una mail strana, un caso personale, una richiesta fuori regola: non manda niente e te lo porta.</div></li>
+    <li><div><b>Decidi tu, sempre.</b>L'assistente non manda niente da solo: prepara le risposte nelle Bozze della posta NOD, le rileggi e premi tu Invia. Puoi tenerlo così per sempre. Se un giorno vuoi lasciargli qualcosa, scegli tu cosa, e puoi tornare indietro quando vuoi.</div></li>
+    <li><div><b>Andrea.</b>Se non risponde su una candidatura, dopo 2 giorni gli arriva un promemoria, come avevi deciso tu. Dopo 3 giorni lo dice a te.</div></li>
+    <li><div><b>Se c'è una persona in difficoltà, si ferma.</b>Un infortunio, un lutto, una rinuncia perché la vita è cambiata, una richiesta fuori regola: non risponde con un testo pronto. Te lo mette in cima alla mail del mattino e aspetta te.</div></li>
     <li><div><b>Non sceglie al posto tuo.</b>Non dà voti agli artisti, non decide chi ammettere, non concede eccezioni.</div></li>
-    <li><div><b>Il Mac aperto di giorno.</b>Così può fare anche le cose sul computer. La notte e quando viaggi può stare chiuso: le cose importanti arrivano lo stesso.</div></li>
-    <li><div><b>Tre mail fisse, non di più.</b>Il resto arriva solo se lo chiedi tu o se c'è qualcosa da decidere.</div></li>
-    <li><div><b>Un account NOD, condiviso con Alessandro.</b>Le tue conversazioni NOD stanno in uno spazio a parte. Alessandro controlla che tutto funzioni.</div></li>
+    <li><div><b>Il Mac aperto di giorno.</b>Aperto vuol dire acceso, con l'app Claude aperta e collegato a internet: se va in stop è come chiuso. La notte e quando viaggi può stare chiuso: le mail fisse e le candidature arrivano lo stesso.</div></li>
+    <li><div><b>Poche mail fisse.</b>La giornata ogni mattina, il lunedì con dentro anche la settimana, e la danza il venerdì. Il punto prima delle call lo trovi dentro gli eventi del calendario. Il resto arriva solo se lo chiedi tu o se c'è qualcosa da decidere.</div></li>
+    <li><div><b>Un account NOD, condiviso con Alessandro.</b>Le tue conversazioni stanno in un progetto tuo, ma l'account è uno: Alessandro può vederle, e tu puoi vedere le sue. Alessandro controlla che tutto funzioni.</div></li>
+    <li><div><b>Ha un limite d'uso, in comune con Alessandro.</b>Se si raggiunge, si ferma per qualche ora. Se una mattina la mail non arriva, scrivilo ad Alessandro: vuol dire che qualcosa si è fermato.</div></li>
+    <li><div><b>I dati dei candidati restano di NOD.</b>L'assistente li legge per lavorare e non li usa per altro. Spegniamo l'uso delle conversazioni per addestrare Claude.</div></li>
+    <li><div><b>Può sbagliare.</b>Un orario, un nome, una data. Per questo ogni cosa la rileggi tu prima che parta.</div></li>
+    <li><div><b>Se non leggi, niente si perde.</b>Quello che non hai guardato torna il giorno dopo, in cima. Se sei via qualche giorno, non manda niente al posto tuo.</div></li>
+    <li><div><b>Per fermarlo basta un messaggio ad Alessandro.</b>La posta e il calendario restano come sono.</div></li>
     <li><div><b>Se qualcosa non va, si cambia.</b>Lo dici ad Alessandro e si sistema.</div></li>
   </ul>
   <div class="fb" data-sec="P2 · 12. Le regole">
     <label for="th2">C'è una regola che non ti va bene? Ne aggiungeresti una?</label>
     <textarea id="th2"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
 <section id="sh3">
-  <div class="num">Come funziona · 3</div>
+  <div class="num">Come funziona · 4</div>
   <h2>Come cominciamo</h2>
   <p class="pitch">Un pezzo alla volta, così vedi come lavora prima di affidargli qualcosa.</p>
   <div class="steps">
-    <div><b>Settimana 1</b>Installiamo insieme, in mezz'ora: Claude sul Mac e sul telefono, il calendario NOD sull'iPhone. Ti arriva la mail del mattino e provi a chiedergli cose a voce.</div>
+    <div><b>Settimana 1</b>Installiamo insieme, in mezz'ora: Claude sul Mac e sul telefono, il calendario NOD sull'iPhone. Ti arriva la mail del mattino, provi a chiedergli cose a voce, e lo mettiamo alla prova su un caso vero che conosci bene, per esempio un artista in arrivo.</div>
     <div><b>Settimane 2 e 3</b>Si aggiungono la mail della danza e le candidature, in prova: ti mostra cosa farebbe, tu confronti con come fai oggi.</div>
-    <div><b>Dopo</b>Scegli tu cosa lasciargli fare da solo. Ogni volta che qualcosa non va, si sistema.</div>
+    <div><b>Dopo</b>Se vuoi, scegli tu cosa lasciargli fare da solo; puoi anche restare sempre con "lui prepara, tu decidi". Ogni volta che qualcosa non va, si sistema.</div>
   </div>
   <div class="fb" data-sec="P2 · 13. Come cominciamo">
     <label for="th3">Ti sembra un buon ritmo? Da cosa vorresti partire?</label>
     <textarea id="th3"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
-<section id="s9">
-  <div class="num">Come funziona · 4</div>
-  <h2>Come ti arriva tutto</h2>
-  <p class="pitch">Tre mail fisse, un calendario in più, e il telefono quando vuoi chiedere qualcosa. Niente da imparare.</p>
-  <div class="week">
-    <div><b>Lun</b><i>8:00 La settimana</i></div>
-    <div><b>Mar</b><i>8:00 Oggi</i></div>
-    <div><b>Mer</b><i>8:00 Oggi</i></div>
-    <div><b>Gio</b><i>8:00 Oggi</i></div>
-    <div><b>Ven</b><i>8:00 Oggi</i><i>Danza</i></div>
-    <div class="off"><b>Sab</b>niente</div>
-    <div class="off"><b>Dom</b>niente</div>
-  </div>
-  <div class="opts">
-    <div class="opt"><h3>Nella posta</h3><p>La giornata ogni mattina, la settimana il lunedì, la danza il venerdì. Le candidature come le hai viste a settembre.</p></div>
-    <div class="opt"><h3>Nel Calendario dell'iPhone</h3><p>Un calendario "NOD" in più, con le call e i promemoria che fissa per te.</p></div>
-    <div class="opt"><h3>Nell'app Claude sul telefono</h3><p>Quando vuoi chiedere qualcosa, scrivendo o a voce.</p></div>
-  </div>
-  <div class="fb" data-sec="P2 · 13b. Come ti arriva tutto">
-    <label for="t9">Ti torna? È troppo, è poco? A che ora vuoi la mail del mattino?</label>
-    <textarea id="t9"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
-  </div>
-</section>
+
 
 <section id="s10">
   <div class="num">La tua opinione</div>
@@ -488,27 +538,41 @@ Vuoi cambiare qualcosa?</div>
   <div class="fb" data-sec="P2 · 14a. Cosa le piace">
     <label for="to1">Cosa ti farebbe più comodo, fra tutto quello che hai visto?</label>
     <textarea id="to1"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
   <div class="fb" data-sec="P2 · 14b. Problemi">
     <label for="to2">Cosa non ti andrebbe bene, o dove vedi problemi?</label>
     <textarea id="to2"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
   <div class="fb" data-sec="P2 · 14c. Cosa manca">
     <label for="to3">Cosa fai ogni settimana che vorresti non fare più tu, e qui non c'è?</label>
     <textarea id="to3"></textarea>
-    <div class="row"><button disabled>Salva</button><span class="state"></span></div>
+    <div class="row"><span class="state"></span></div>
   </div>
 </section>
 
-<footer>Fine. Grazie. Puoi tornare qui quando vuoi: ogni Salva arriva ad Alessandro.</footer>
+<section id="sinvio" class="sendbox">
+  <div class="num">Ultimo passo</div>
+  <h2>Manda le tue risposte ad Alessandro</h2>
+  <p>Quando hai finito, premi il pulsante verde. È quello che manda tutto ad Alessandro.</p>
+  <div class="down">↓</div>
+  <button id="sendall" class="big"><span class="env"></span>Manda ad Alessandro</button>
+  <div id="sendmsg" class="sendmsg" hidden></div>
+</section>
+
+<footer>Puoi tornare su questa pagina quando vuoi, aggiungere altro e premere di nuovo il pulsante verde.</footer>
+<div class="stick" id="stick"><span id="cnt">Scrivi nei riquadri, poi premi il pulsante verde in fondo.</span><a href="#sinvio">Ho finito</a></div>
 </div>
 
 <script>
 (function(){
   var FORM='https://docs.google.com/forms/d/e/1FAIpQLSfLqqJR4yuN4ne7odnKFgtimuqfAqT8KbL9AVcKcs8OIaDRMw/formResponse';
   var F_SEC='entry.442569314', F_TXT='entry.477559920';
+  function post(sec,text){var fd=new FormData();fd.append(F_SEC,sec);fd.append(F_TXT,text);return fetch(FORM,{method:'POST',mode:'no-cors',body:fd});}
+  function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+
   document.querySelectorAll('[data-group]').forEach(function(g){
     var res=g.parentElement.querySelector('.result');
     g.querySelectorAll('button').forEach(function(b){
@@ -522,22 +586,47 @@ Vuoi cambiare qualcosa?</div>
   document.querySelectorAll('.dict button').forEach(function(b){
     b.addEventListener('click',function(){b.querySelector('span').hidden=false;});
   });
-  document.querySelectorAll('.fb').forEach(function(fb){
-    var sec=fb.getAttribute('data-sec'), ta=fb.querySelector('textarea'), bt=fb.querySelector('button'), st=fb.querySelector('.state');
-    var key='nod-p2:'+sec;
-    try{var saved=localStorage.getItem(key); if(saved){ta.value=saved; st.className='state ok'; st.textContent='Salvato';}}catch(e){}
-    ta.addEventListener('input',function(){bt.disabled=!ta.value.trim(); st.textContent='';st.className='state';});
-    bt.addEventListener('click',function(){
-      var text=ta.value.trim(); if(!text) return;
-      bt.disabled=true; st.className='state'; st.textContent='Salvo…';
-      var fd=new FormData(); fd.append(F_SEC,sec); fd.append(F_TXT,text);
-      fetch(FORM,{method:'POST',mode:'no-cors',body:fd}).then(function(){
-        st.className='state ok'; st.textContent='Salvato';
-        try{localStorage.setItem(key,text);}catch(e){}
-      }).catch(function(){
-        st.className='state err'; st.textContent='Non salvato: controlla la connessione e riprova';
-        bt.disabled=false;
-      });
+
+  var savers=[];
+  var boxes=[].slice.call(document.querySelectorAll('.fb'));
+  var cnt=document.getElementById('cnt');
+  function filled(){return boxes.filter(function(fb){return fb.querySelector('textarea').value.trim()});}
+  function count(){
+    var n=filled().length;
+    cnt.textContent = n ? ('Hai scritto in '+n+(n===1?' riquadro.':' riquadri.')+' Quando hai finito:') : 'Scrivi nei riquadri, poi premi il pulsante verde in fondo.';
+  }
+  boxes.forEach(function(fb){
+    var sec=fb.getAttribute('data-sec'), ta=fb.querySelector('textarea'), st=fb.querySelector('.state');
+    var key='nod-p2:'+sec, saved=load(key), last=saved||'';
+    if(saved){ta.value=saved; st.className='state ok'; st.textContent='Salvato';}
+    function save(){
+      var text=ta.value.trim(); if(!text||text===last) return;
+      st.className='state'; st.textContent='Salvo…';
+      post(sec,text).then(function(){last=text; store(key,text); st.className='state ok'; st.textContent='Salvato';})
+        .catch(function(){st.className='state err'; st.textContent='Non salvato: controlla la connessione';});
+    }
+    var dk='nod-p2-draft:'+sec, draft=load(dk); if(!saved&&draft){ta.value=draft; st.className='state'; st.textContent='Non ancora inviato';}
+    ta.addEventListener('input',function(){store(dk,ta.value); st.className='state'; st.textContent='Non ancora inviato'; count();});
+    ta.addEventListener('blur',save);
+    savers.push(save);
+  });
+  function saveAll(){savers.forEach(function(f){f();});}
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')saveAll();});
+  window.addEventListener('pagehide',saveAll);
+  count();
+
+  var btn=document.getElementById('sendall'), msg=document.getElementById('sendmsg');
+  btn.addEventListener('click',function(){
+    var list=filled();
+    if(!list.length){msg.className='sendmsg err'; msg.textContent='Non hai ancora scritto niente nei riquadri.'; msg.hidden=false; return;}
+    var text=list.map(function(fb){return fb.getAttribute('data-sec').replace('P2 · ','')+'\n'+fb.querySelector('textarea').value.trim();}).join('\n\n');
+    btn.disabled=true; msg.hidden=true;
+    post('P2 · INVIO FINALE',text).then(function(){
+      msg.className='sendmsg ok'; msg.textContent='Fatto: le tue risposte sono partite per Alessandro. Grazie.'; msg.hidden=false;
+      btn.disabled=false; btn.lastChild.textContent='Manda di nuovo';
+      store('nod-p2:inviato','1');
+    }).catch(function(){
+      msg.className='sendmsg err'; msg.textContent='Non è partito: controlla la connessione e premi di nuovo.'; msg.hidden=false; btn.disabled=false;
     });
   });
 })();
