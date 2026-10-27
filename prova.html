@@ -17,7 +17,7 @@ body{background:var(--bg);color:var(--ink);font:18px/1.55 "Source Serif 4",Georg
 h1{font:900 clamp(30px,7vw,40px)/1.1 Lato,system-ui,sans-serif;margin:10px 0 10px;text-wrap:balance}
 h2{font:900 24px/1.2 Lato,system-ui,sans-serif;margin:0;text-wrap:balance}
 h3{font:900 17px/1.25 Lato,system-ui,sans-serif;margin:0}
-p{margin:0;max-width:62ch}
+p{margin:0}
 .num{font:700 13px/1 Lato,system-ui,sans-serif;color:var(--accent);letter-spacing:.08em}
 .lead{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;font-size:17px}
 section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px clamp(16px,4vw,28px);display:flex;flex-direction:column;gap:16px}
@@ -100,6 +100,29 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
 .day2 li b{font:900 14px Lato;color:var(--accent);padding-top:1px}
 @media (max-width:640px){.hero,.ba{grid-template-columns:1fr}.bar{grid-template-columns:110px 1fr 40px}}
 
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sit{border:2px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.sit.on{border-color:var(--ok)} .sit.off{border-color:#d9a640}
+.sit .who{font:15px/1.4 Lato,system-ui,sans-serif;color:var(--muted)}
+.sit .can{font:700 15px Lato,system-ui,sans-serif}
+.sit ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font:15px/1.4 Lato,system-ui,sans-serif}
+.sit li{display:grid;grid-template-columns:18px 1fr;gap:6px}
+.sit li b{font-weight:900}
+.cards3{display:flex;flex-direction:column;gap:14px}
+.fcard{border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;background:#fff}
+.fcard.c2{border-top-color:#2c8c7a} .fcard.c3{border-top-color:#d9a640}
+.fcard p{font-size:16px}
+.chart{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.donut{width:150px;height:150px;border-radius:50%;position:relative;flex:none;background:conic-gradient(#6b4fa3 0 34%,#2c8c7a 34% 58%,#d9a640 58% 76%,#d4607a 76% 88%,#4a86c5 88% 95%,#b9b3a8 95% 100%)}
+.donut::after{content:"Spese";position:absolute;inset:30px;background:#fff;border-radius:50%;display:grid;place-items:center;font:900 15px Lato,system-ui,sans-serif;color:var(--ink)}
+.legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;font:14px Lato,system-ui,sans-serif}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.trend{display:flex;flex-direction:column;gap:8px}
+.trend div{font:700 15px/1.35 Lato,system-ui,sans-serif;border-radius:10px;padding:9px 12px}
+.trend .down2{background:var(--ok-bg);color:var(--ok)} .trend .up2{background:#e6eef8;color:#2d5f96} .trend .warn2{background:var(--warn-bg);color:var(--warn)}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -108,7 +131,7 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
 <header>
   <div class="eyebrow">NOD · il tuo assistente</div>
   <h1>Proviamo il tuo assistente</h1>
-  <p class="short"><b>Ti aiuta a ritrovare il filo:</b> chi ti ha scritto, cosa avevate deciso, cosa resta da chiudere. È come ChatGPT, ma lavora sulle cose di NOD: gli scrivi "cosa ho oggi?" e ti risponde dopo aver letto la posta e il calendario di NOD, senza che tu gli copi niente. Si chiama Claude. Gli scrivi dal telefono, con l'app Claude, o dal computer. Legge anche le chat WhatsApp, quando glielo chiedi. Scrivi come scriveresti a me: "rispondi a Giulia che sabato va bene", "cosa mi ha scritto il teatro?". Puoi anche dettare col microfono della tastiera.</p>
+  <p class="short"><b>Ti aiuta a ritrovare il filo:</b> chi ti ha scritto, cosa avevate deciso, cosa resta da chiudere. È come ChatGPT, ma lavora sulle cose di NOD: gli scrivi "cosa ho oggi?" e ti risponde dopo aver letto la posta e il calendario di NOD. Gli scrivi dal telefono o dal computer, come scriveresti a me: "rispondi a Giulia che sabato va bene", "cosa mi ha scritto il teatro?".</p>
 </header>
 
 <div class="lead">
@@ -123,7 +146,6 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
   <p>3. Le risposte si salvano mentre tocchi. Alla fine, in fondo alla pagina, premi il <b>pulsante verde grande "Manda ad Alessandro"</b>: è quello che me le consegna tutte e mi dice che hai finito. Ale</p>
 </div>
 
-
 <section>
   <h2>Cosa può fare per te</h2>
   <div class="hero">
@@ -133,73 +155,69 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
       <li>Scrive mail e WhatsApp nel tuo tono, tu dici sì</li>
       <li>Ti ricorda le cose all'ora giusta</li>
       <li>Ti dice chi aspetta ancora una tua risposta</li>
-      <li>Ti dice cosa manca a una candidatura (modulo, video, allegati)</li>
+      <li>Ti dice cosa manca a una candidatura</li>
       <li>Mette insieme la visita di un artista: date, volo, alloggio, contratto, fattura</li>
       <li>Ti propone gli orari per i candidati, già con il loro fuso</li>
       <li>Dopo una call, dal tuo riassunto prepara mail e promemoria</li></ul></div>
     <div class="col soon"><h3>Più avanti, insieme</h3><ul>
-      <li>Le spese di NOD a colpo d'occhio, per categoria</li>
-      <li>La prima nota sistemata e controllata</li>
+      <li>Spese ed entrate di NOD a colpo d'occhio</li>
+      <li>La prima nota più chiara</li>
       <li>Business plan e conti per le idee nuove</li>
-      <li>Rate e ricevute in ordine, con quello che è da verificare</li>
       <li>Ricerche: festival, bandi, nuovi programmi</li></ul></div>
   </div>
-  <p class="short">Tu decidi, lui prepara. Più sotto trovi esempi di tutte e due le colonne: i nomi negli esempi sono inventati.</p>
+  <p class="short">Tu decidi, lui prepara. I nomi negli esempi qui sotto sono inventati.</p>
 </section>
 
 <!-- 1 -->
-<section class="box" data-sec="P3 · 1. Dove lavora">
-  <div class="num">1 di 9</div>
-  <h2>Dove lavora il tuo assistente?</h2>
-  <div class="three">
-    <div class="where full">
-      <div class="light"><i></i>Posta, WhatsApp, documenti</div>
-      <h3>Il tuo portatile, acceso</h3>
+<section class="box" data-sec="P3 · 1. Computer acceso">
+  <div class="num">1 di 6</div>
+  <h2>Quando può fare tutto?</h2>
+  <div class="two">
+    <div class="sit on">
+      <div class="light"><i style="background:var(--ok)"></i><span style="color:var(--ok)">Fa tutto</span></div>
+      <h3>C'è un computer acceso</h3>
+      <div class="who">Il tuo portatile aperto, oppure un computer lasciato acceso in ufficio o a casa, in carica.</div>
+      <div class="can">Fa tutto, anche se gli scrivi dal telefono:</div>
       <ul>
-        <li class="y"><b>✓</b>Legge la posta di NOD (dancenod@gmail.com) e prepara le risposte. Le manda solo se gli dici sì.</li>
-        <li class="y"><b>✓</b>Legge e scrive anche su WhatsApp, dal portatile. Manda solo se gli dici sì.</li>
-        <li class="y"><b>✓</b>Va a prendere i documenti di NOD salvati su Google</li>
-        <li class="y"><b>✓</b>Ritrova l'ultima conversazione con una persona e ti prepara la risposta, sul modello delle mail che hai già mandato</li>
-        <li class="y"><b>✓</b>Ti prepara la giornata quando gli scrivi "cosa ho oggi?"</li>
-        <li class="y"><b>✓</b>Fissa le call e manda gli inviti, se gli dici sì</li>
+        <li class="y"><b>✓</b>Legge e risponde a mail e WhatsApp, col tuo sì</li>
+        <li class="y"><b>✓</b>Trova i documenti di NOD</li>
+        <li class="y"><b>✓</b>Ti prepara la giornata</li>
+        <li class="y"><b>✓</b>Fissa le call e manda gli inviti</li>
       </ul>
     </div>
-    <div class="where half">
-      <div class="light"><i></i>Testi e calendario sempre, il resto col portatile acceso</div>
-      <h3>Il telefono</h3>
+    <div class="sit off">
+      <div class="light"><i style="background:#d9a640"></i><span style="color:var(--warn)">Solo alcune cose</span></div>
+      <h3>Nessun computer acceso</h3>
+      <div class="who">Per esempio sei al parco con i cani e il portatile è chiuso.</div>
+      <div class="can">Dal telefono può:</div>
       <ul>
-        <li class="y"><b>✓</b>Serve l'app Claude, con l'icona arancione. La mettiamo insieme.</li>
-        <li class="y"><b>✓</b>Sempre: ti risponde, ti scrive i testi, mette le cose nel calendario NOD che vedi sull'iPhone</li>
-        <li class="y"><b>✓</b>Col computer acceso: chiede al computer di rispondere a una mail o a un WhatsApp, o di prendere un documento</li>
-        <li class="n"><b>✕</b>Se il computer è spento, non lo può fare: riapri il portatile e chiediglielo di nuovo</li>
-        <li class="n"><b>✕</b>A computer spento l'assistente non vede posta, WhatsApp e documenti. Tu li leggi come sempre, sul telefono.</li>
-      </ul>
-    </div>
-    <div class="where opt">
-      <div class="light"><i></i>Se vuoi</div>
-      <h3>Un computer sempre acceso in sede</h3>
-      <ul>
-        <li class="y"><b>✓</b>Come il portatile, ma ti risponde anche quando il portatile è chiuso. Ti chiede sempre prima di mandare.</li>
-        <li class="y"><b>✓</b>Può essere un computer che non usate più. Lo prepara Alessandro. Prima di decidere ne parliamo.</li>
+        <li class="y"><b>✓</b>Scriverti testi e messaggi da copiare</li>
+        <li class="y"><b>✓</b>Darti idee e rispondere a domande</li>
+        <li class="y"><b>✓</b>Mettere call e promemoria in calendario</li>
+        <li class="n"><b>✕</b>Non apre posta, WhatsApp e documenti, finché un computer non è acceso</li>
       </ul>
     </div>
   </div>
-  <div class="link">Tu scrivi dal telefono &nbsp;⟶&nbsp; il portatile acceso lo fa &nbsp;⟶&nbsp; la risposta la trovi nell'app Claude, sul telefono</div>
-  <div class="rule">In breve: per la posta e i documenti serve il portatile aperto, attaccato alla presa e con il wifi. Lo schermo nero va bene: lo sistemiamo il primo giorno. Se lo chiudi, si ferma; quando lo riapri, riparte.</div>
+  <div class="rule">Per avere tutto sempre, basta lasciare un computer acceso, in ufficio o a casa, attaccato alla presa.</div>
   <div class="ask">
-    <div class="q">Prova: il portatile è chiuso e dal telefono gli chiedi una mail. Cosa succede?</div>
-    <div class="chips" data-q="Verifica" data-single><button>Me la trova lo stesso</button><button>Mi dice che il computer è chiuso</button><button>Non lo so</button></div>
-    <div class="hint">La risposta giusta è la seconda: riapri il portatile e chiediglielo di nuovo.</div>
+    <div class="q">Si può lasciare un computer sempre acceso, in ufficio o a casa?</div>
+    <div class="chips" data-q="Computer sempre acceso" data-single><button>Sì</button><button>No</button><button>Ne parliamo</button></div>
+    <div class="hint">Se dici sì, lo preparo io.</div>
+  </div>
+  <div class="ask">
+    <div class="q">Prova: sei al parco, nessun computer è acceso, e gli chiedi di rispondere a una mail. Cosa succede?</div>
+    <div class="chips" data-q="Verifica" data-single><button>La manda lo stesso</button><button>Ti dice che serve un computer acceso</button><button>Non lo so</button></div>
+    <div class="hint">La risposta giusta è la seconda.</div>
     <textarea data-q="Nota" placeholder="Se qualcosa non è chiaro, scrivilo qui"></textarea>
     <div class="state"></div>
   </div>
 </section>
 
-<!-- mattina -->
+<!-- 2 -->
 <section class="box" data-sec="P3 · 2. Una mattina vera">
-  <div class="num">2 di 9</div>
+  <div class="num">2 di 6</div>
   <h2>Una mattina vera con l'assistente</h2>
-  <p class="short">Il portatile è acceso e aperto.</p>
+  <p class="short">Il computer è acceso.</p>
   <ul class="day2">
     <li><b>9:00</b>Col caffè, apri Claude sul telefono e scrivi: "cosa ho stamattina?"</li>
     <li><b>9:01</b>Ti fa il punto: "Alle 11 hai una call con Andrea. Marta aspetta una risposta sulle date per venire a NOD." Ti fa vedere la mail.</li>
@@ -216,9 +234,9 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
   </div>
 </section>
 
-<!-- 2 -->
+<!-- 3 -->
 <section class="box" data-sec="P3 · 3. Cosa fa per te">
-  <div class="num">3 di 9</div>
+  <div class="num">3 di 6</div>
   <h2>Cosa fa per te ogni giorno?</h2>
   <p class="short">Quattro esempi. Per ognuno dimmi se ti serve.</p>
   <div class="scenes">
@@ -226,14 +244,14 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
       <h3>La giornata</h3>
       <div class="say">cosa ho oggi?</div>
       <div class="ans">Alle 11 hai una call con Andrea. Marta aspetta una risposta sulle date per venire a NOD: ecco la sua mail. La rata di Lucía scade venerdì.</div>
-      <div class="hint">Le call le prende dal calendario NOD, le scadenze dalle mail. Non paga niente: te le ricorda e basta. Dal telefono funziona se il portatile è acceso.</div>
+      <div class="hint">Le call le prende dal calendario, le scadenze dalle mail. Serve un computer acceso.</div>
       <div class="chips" data-q="La giornata" data-single><button>Mi serve</button><button>Ogni tanto</button><button>No</button><button>Non ho capito</button></div>
     </div>
     <div class="scene">
       <h3>Le call</h3>
       <div class="say">fissami mezz'ora con Andrea giovedì</div>
       <div class="ans">Sul tuo calendario sono libere le 11 e le 15. Ecco una mail per proporgliele. La mando?</div>
-      <div class="hint">Guarda solo il tuo calendario, non quello di Andrea: l'orario si fissa quando lui risponde. Con i candidati all'estero scrive anche l'ora del loro paese. Proposte e inviti partono dal portatile acceso, e solo col tuo sì.</div>
+      <div class="hint">L'orario si fissa quando lui risponde. Con i candidati all'estero scrive anche l'ora del loro paese.</div>
       <div class="chips" data-q="Le call" data-single><button>Mi serve</button><button>Ogni tanto</button><button>No</button><button>Non ho capito</button></div>
     </div>
     <div class="scene">
@@ -243,18 +261,17 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
         <div class="arrow">↓</div>
         <div class="step">Ti mostra: "Ciao Marta, marzo per noi va bene. Da quale aeroporto partiresti?"</div>
         <div class="arrow">↓</div>
-        <div class="step stop">Controlli testo e destinataria. Lui chiede: "La mando?" Rispondi "sì", oppure "più corto", "più gentile".</div>
+        <div class="step stop">"La mando?" Rispondi "sì", oppure "più corto", "più gentile".</div>
         <div class="arrow">↓</div>
-        <div class="step go">Parte per mail dalla posta di NOD, o su WhatsApp, firmato da te. Solo se dici sì.</div>
+        <div class="step go">Parte per mail o su WhatsApp, solo se dici sì.</div>
       </div>
-      <div class="hint">Su WhatsApp funziona allo stesso modo, dal portatile acceso. Le tue chat le legge solo quando gli chiedi qualcosa su quella persona.</div>
       <div class="chips" data-q="I messaggi" data-single><button>Mi serve</button><button>Ogni tanto</button><button>No</button><button>Non ho capito</button></div>
     </div>
     <div class="scene">
       <h3>I promemoria</h3>
       <div class="say">ricordami venerdì alle 9 di chiamare il padrone di casa per la stanza di Luca</div>
       <div class="ans">Fatto: è nel calendario, venerdì alle 9, con l'avviso.</div>
-      <div class="hint">Lo trovi nel Calendario dell'iPhone. Funziona anche a portatile chiuso. Se il telefono è in silenzioso vedi l'avviso ma non lo senti.</div>
+      <div class="hint">Funziona anche al parco, senza computer acceso.</div>
       <div class="chips" data-q="I promemoria" data-single><button>Mi serve</button><button>Ogni tanto</button><button>No</button><button>Non ho capito</button></div>
     </div>
   </div>
@@ -265,42 +282,13 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
   </div>
 </section>
 
-<!-- 3 -->
-<section class="box" data-sec="P3 · 4. A chi scrivi">
-  <div class="num">4 di 9</div>
-  <h2>A chi scrivi di solito?</h2>
-  <p class="short">Tocca tutti quelli a cui scrivi spesso. Serve per insegnargli il tono giusto per ognuno: non scrive a nessuno senza il tuo sì.</p>
-  <div class="chips" data-q="Scrive a">
-    <button>Candidati</button><button>Studenti</button><button>Artisti ospiti</button><button>Andrea</button><button>Chiara</button><button>Padroni di casa</button><button>Commercialista</button><button>Fornitori</button><button>Teatri e festival</button><button>Altri</button>
-  </div>
-  <div class="ask">
-    <div class="q">Di solito scrivi per mail o su WhatsApp?</div>
-    <div class="chips" data-q="Mail o WhatsApp" data-single><button>Quasi sempre mail</button><button>Quasi sempre WhatsApp</button><button>Tutti e due</button><button>Dipende dalla persona</button></div>
-  </div>
-  <div class="ask">
-    <div class="q">Come scrivi a ciascuno?</div>
-    <textarea data-q="Nota" placeholder="Per esempio: agli artisti mail in inglese, amichevole; ad Andrea WhatsApp; al commercialista formale"></textarea>
-    <div class="state"></div>
-  </div>
-  <div class="note">Il primo giorno, al computer, guardiamo insieme alcune mail che hai già mandato: impara il tuo modo di scrivere da lì, e tu lo correggi. Legge solo la posta di NOD, e le mail da guardare le scegli tu.</div>
-</section>
-
 <!-- 4 -->
-<section class="box" data-sec="P3 · 5. Le call">
-  <div class="num">5 di 9</div>
+<section class="box" data-sec="P3 · 4. Le call">
+  <div class="num">4 di 6</div>
   <h2>Le tue call</h2>
   <div class="ask" style="border-top:0;padding-top:0">
-    <div class="q">In che giorni?</div>
-    <div class="chips" data-q="Giorni"><button>Lunedì-venerdì</button><button>Sabato</button><button>Domenica</button></div>
-    <div class="q">A che ora le fai volentieri?</div>
-    <div class="chips" data-q="Orari"><button>Mattina</button><button>Ora di pranzo</button><button>Pomeriggio</button><button>Sera</button></div>
-    <div class="q">Momenti da evitare?</div>
-    <textarea data-q="Da evitare" placeholder="Per esempio: mai prima delle 10, mai durante le lezioni"></textarea>
-  </div>
-  <div class="ask">
-    <div class="q">Come fai di solito gli incontri?</div>
+    <div class="q">Come fai di solito le call?</div>
     <div class="chips" data-q="Come"><button>Telefono</button><button>WhatsApp</button><button>Zoom</button><button>Meet</button><button>Di persona</button></div>
-    <div class="hint">Il link di Zoom o Meet lo metti tu, come fai oggi. Se glielo dai, lo mette lui nell'invito.</div>
   </div>
   <div class="ask">
     <div class="q">Prima di una call, cosa ti farebbe comodo avere davanti?</div>
@@ -308,102 +296,64 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
     <textarea data-q="Nota" placeholder="Altro che ti servirebbe sapere prima, o cosa non hai capito"></textarea>
     <div class="state"></div>
   </div>
-  <div class="note">Prima di una call gli scrivi "preparami la call con Andrea": ti dice cosa avete deciso e cosa resta aperto. Con una candidata: la candidatura, il link al video, le domande aperte. Con un artista: date, viaggio, contratto. Lo prende dalle mail, dalle chat WhatsApp e dai documenti di NOD. Le telefonate non le sente: se serve, raccontagliele tu. Cosa metterci lo decidiamo insieme nelle due settimane.</div>
+  <div class="note">Gli scrivi "preparami la call con Andrea": ti dice cosa avete deciso e cosa resta aperto. Con una candidata: la candidatura, il link al video, le domande aperte. Con un artista: date, viaggio, contratto.</div>
 </section>
 
 <!-- 5 -->
-<section class="box" data-sec="P3 · 6. Il computer">
-  <div class="num">6 di 9</div>
-  <h2>Il tuo computer</h2>
-  <div class="ask" style="border-top:0;padding-top:0">
-    <div class="q">Quando esci, il portatile dove resta?</div>
-    <div class="chips" data-q="Quando esce" data-single><button>Resta in sede, aperto</button><button>Resta in sede, chiuso</button><button>Viene con me</button><button>Dipende</button></div>
-    <div class="hint">Se lo porti con te funziona lo stesso, purché sia aperto e abbia internet.</div>
-  </div>
-  <div class="ask">
-    <div class="q">Un computer sempre acceso in sede, attaccato alla presa, si può fare?</div>
-    <div class="chips" data-q="Computer in sede" data-single><button>Sì, si può</button><button>No</button><button>Ne parliamo</button></div>
-    <div class="hint">Se dici sì, ti chiedo quale computer usare e lo preparo io.</div>
-    <textarea data-q="Nota" placeholder="Se vuoi aggiungere qualcosa, o se non hai capito"></textarea>
-    <div class="state"></div>
-  </div>
-</section>
-
-<!-- 7 -->
-<section class="box" data-sec="P3 · 7. Più avanti">
-  <div class="num">7 di 9</div>
+<section class="box" data-sec="P3 · 5. Più avanti">
+  <div class="num">5 di 6</div>
   <h2>Più avanti: i conti e le idee di NOD</h2>
-  <p class="short">Questa parte la costruiamo io e l'assistente, tu ci dai i file. Ecco cosa può venirne fuori.</p>
-
-  <h3>Dove vanno i soldi, a colpo d'occhio</h3>
-  <div class="bars">
-    <div class="bar"><span>Artisti ospiti</span><div class="t"><i style="width:34%"></i></div><b>34%</b></div>
-    <div class="bar"><span>Sale e affitti</span><div class="t"><i style="width:24%"></i></div><b>24%</b></div>
-    <div class="bar"><span>Insegnanti</span><div class="t"><i style="width:18%"></i></div><b>18%</b></div>
-    <div class="bar"><span>Viaggi e alloggi</span><div class="t"><i style="width:12%"></i></div><b>12%</b></div>
-    <div class="bar"><span>Comunicazione</span><div class="t"><i style="width:7%"></i></div><b>7%</b></div>
-    <div class="bar"><span>Altro</span><div class="t"><i style="width:5%"></i></div><b>5%</b></div>
+  <p class="short">Questa parte la costruiamo io e l'assistente: tu ci dai i file.</p>
+  <div class="cards3">
+    <div class="fcard">
+      <h3>Spese ed entrate a colpo d'occhio</h3>
+      <div class="chart">
+        <div class="donut" role="img" aria-label="Esempio: spese per categoria"></div>
+        <ul class="legend">
+          <li><i style="background:#6b4fa3"></i>Artisti ospiti · 34%</li>
+          <li><i style="background:#2c8c7a"></i>Sale e affitti · 24%</li>
+          <li><i style="background:#d9a640"></i>Insegnanti · 18%</li>
+          <li><i style="background:#d4607a"></i>Viaggi e alloggi · 12%</li>
+          <li><i style="background:#4a86c5"></i>Comunicazione · 7%</li>
+          <li><i style="background:#b9b3a8"></i>Altro · 5%</li>
+        </ul>
+      </div>
+      <div class="trend">
+        <div class="down2">▼ Questo mese avete speso il 12% in meno di settembre</div>
+        <div class="up2">▲ Quest'anno le entrate sono il 9% in più dell'anno scorso</div>
+        <div class="warn2">Le sale costano l'8% più del previsto</div>
+      </div>
+      <div class="ex">Esempio con numeri inventati.</div>
+    </div>
+    <div class="fcard c2">
+      <h3>La prima nota, più chiara</h3>
+      <p>La rendiamo più ordinata e la colleghiamo ai grafici: ogni spesa al suo posto, e quello che non torna segnato da controllare. Mandami il file Excel e parto da lì.</p>
+    </div>
+    <div class="fcard c3">
+      <h3>Business plan e idee nuove</h3>
+      <p>Una volta al mese un'ora per pensare in grande: un nuovo programma, una nuova entrata, un bando, un festival. L'assistente prepara ricerche e conti, tu scegli.</p>
+    </div>
   </div>
-  <div class="ex">Esempio con numeri inventati. Con i tuoi dati veri: entrate e spese per categoria, mese per mese, e un avviso quando una voce cresce troppo.</div>
-
-  <h3>La prima nota, prima e dopo</h3>
-  <div class="ba">
-    <div class="before"><b>Oggi</b><table>
-      <tr><td>12/03</td><td>bonifico</td><td>1.200,00</td></tr>
-      <tr><td>13/03</td><td>Amazon</td><td>54,90</td></tr>
-      <tr><td>14/03</td><td>???</td><td>320,00</td></tr></table></div>
-    <div class="after"><b>Sistemata</b><table>
-      <tr><td>12/03</td><td>Retta studente</td><td><span class="tag2">ICD</span></td><td>1.200,00</td></tr>
-      <tr><td>13/03</td><td>Materiale sala</td><td><span class="tag2">Spese</span></td><td>54,90</td></tr>
-      <tr><td>14/03</td><td>Volo artista</td><td><span class="tag2">da controllare</span></td><td>320,00</td></tr></table></div>
-  </div>
-  <div class="ex">Esempio inventato. Ogni riga con la sua categoria e il programma, e le righe dubbie segnate da controllare.</div>
-
-  <h3>Le idee nuove</h3>
-  <p class="short">Una volta al mese un'ora per pensare in grande: un nuovo programma, una nuova entrata, un bando, un festival. L'assistente prepara le ricerche e i conti, tu scegli.</p>
-
   <div class="ask">
     <div class="q">Ti interessa?</div>
     <div class="chips" data-q="Conti e idee" data-single><button>Molto</button><button>Più avanti</button><button>Non ora</button></div>
     <textarea data-q="Nota" placeholder="Cosa ti piacerebbe capire meglio dei conti di NOD? Che idee nuove hai in testa?"></textarea>
     <div class="state"></div>
   </div>
-  <div class="note"><b>Per cominciare:</b> mandami la prima nota, il file Excel, su WhatsApp o per mail. Parto da lì.</div>
 </section>
 
-<!-- 8 -->
-<section class="box" data-sec="P3 · 8. La prova">
-  <div class="num">8 di 9</div>
-  <h2>Come proviamo</h2>
-  <div class="steps">
-    <div>Mezz'ora insieme, il giorno lo fissiamo su WhatsApp. Porta portatile e telefono carichi e la password dell'App Store.</div><span>→</span>
-    <div>Sistemiamo il portatile, colleghiamo WhatsApp al portatile, mettiamo l'app Claude sul telefono e il calendario NOD sull'iPhone. Alla fine hai già provato "cosa ho oggi?" e un promemoria.</div><span>→</span>
-    <div>Per due settimane prova queste: "cosa ho stamattina?", "chi aspetta una mia risposta?", "rispondi a…", "fissami mezz'ora con…", "ricordami…", "preparami la call con…".</div><span>→</span>
-    <div>Dopo due settimane ti chiamo io, venti minuti, e lo sistemiamo.</div>
-  </div>
-  <div class="note"><b>La mattina, durante la prova:</b><br>1. Apri il portatile e lascialo aperto, attaccato alla presa.<br>2. Sul telefono apri l'app Claude (icona arancione) e scrivi sempre nella conversazione "NOD".<br>3. Scrivi "cosa ho oggi?".<br>4. Se ti dice che il computer è spento, controlla il portatile e riprova.</div>
-  <div class="note"><b>Se qualcosa non va:</b> scrivimi su WhatsApp cosa gli hai chiesto e cosa ti ha risposto. Se riesci, mandami una foto dello schermo.</div>
-  <p class="short"><b>Decidi sempre tu.</b> Prima di mandare una mail, un WhatsApp o un invito ti mostra a chi va e cosa dice, e aspetta il tuo sì. Le decisioni su candidati, date e accordi restano tue. Non paga e non cancella niente.</p>
-  <p class="short"><b>Può sbagliare</b> un nome o una data: prima di dire sì, rileggi. Se sbaglia, diglielo: "no, era giovedì".</p>
-  <p class="short">Non costa niente in più: l'abbonamento c'è già, lo paga NOD.</p>
+<!-- 6 -->
+<section class="box" data-sec="P3 · 6. Domande">
+  <div class="num">6 di 6</div>
+  <h2>Come partiamo</h2>
+  <p class="short">Lo preparo io sul tuo computer. Tu lo provi, e piano piano lo facciamo crescere sulle cose che ci sembrano utili. Decidi sempre tu: prima di mandare qualsiasi cosa ti chiede il sì.</p>
   <div class="ask">
-    <div class="q">C'è qualcosa della prova che ti preoccupa o che vorresti diverso?</div>
-    <textarea data-q="Nota" placeholder="Scrivilo qui"></textarea>
-    <div class="state"></div>
-  </div>
-</section>
-
-<!-- 7 -->
-<section class="box" data-sec="P3 · 9. Domande">
-  <div class="num">9 di 9</div>
-  <h2>Ultime due domande</h2>
-  <div class="ask" style="border-top:0;padding-top:0">
-    <div class="q">C'è qualcosa che non hai capito? Anche una parola sola.</div>
-    <textarea data-q="Non ho capito" placeholder="Scrivilo qui"></textarea>
+    <div class="q">C'è qualcosa che non hai capito, o che ti preoccupa?</div>
+    <textarea data-q="Non ho capito" placeholder="Scrivilo qui, anche una parola sola"></textarea>
   </div>
   <div class="ask">
-    <div class="q">Pensa al primo giorno, dopo la mezz'ora insieme: cosa vorresti chiedergli per prima cosa?</div>
-    <textarea data-q="Primo giorno" placeholder="Per esempio: cosa ho oggi?"></textarea>
+    <div class="q">Cosa vorresti chiedergli per prima cosa?</div>
+    <textarea data-q="Prima cosa" placeholder="Per esempio: cosa ho oggi?"></textarea>
     <div class="state"></div>
   </div>
 </section>
@@ -417,7 +367,7 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
   <div id="sendmsg" class="sendmsg" hidden></div>
 </section>
 
-<footer>Per tornare qui, riapri il link che ti ho mandato su WhatsApp. Se le risposte non ci sono più, non importa: le ho già ricevute.</footer>
+<footer>Per tornare qui, riapri il link che ti ho mandato su WhatsApp.</footer>
 <div class="stick"><span id="cnt">Tocca le risposte, poi premi il pulsante verde in fondo.</span><a href="#sinvio">Vai in fondo ↓</a></div>
 </div>
 
@@ -489,7 +439,7 @@ footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
     if(!all.length){msg.className='sendmsg err';msg.textContent='Non hai ancora toccato nessuna risposta.';msg.hidden=false;return;}
     btn.disabled=true; msg.hidden=true;
     post('P3 · INVIO FINALE',all.join('\n\n')).then(function(){
-      msg.className='sendmsg ok';msg.textContent='Fatto: le risposte sono arrivate ad Alessandro. Ti scrivo io su WhatsApp per fissare la mezz\'ora insieme.';msg.hidden=false;btn.disabled=false;btn.textContent='Manda di nuovo';
+      msg.className='sendmsg ok';msg.textContent='Fatto: le risposte sono arrivate ad Alessandro. Grazie.';msg.hidden=false;btn.disabled=false;btn.textContent='Manda di nuovo';
     }).catch(function(){msg.className='sendmsg err';msg.textContent='Non è partito: controlla la connessione e premi di nuovo.';msg.hidden=false;btn.disabled=false;});
   });
 })();
