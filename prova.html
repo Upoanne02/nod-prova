@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NOD, proviamo l'assistente</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+:root{--bg:#f7f6f3;--paper:#fff;--ink:#22232e;--muted:#63657a;--line:#dedcd6;--accent:#5b4a8b;--accent-soft:#ece8f5;--ok:#2c6e49;--ok-bg:#e3f1e8;--warn:#8a5a00;--warn-bg:#fbefd6;--grey-bg:#eceae5}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:18px/1.55 "Source Serif 4",Georgia,serif;padding-inline:16px;padding-block:24px 0}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.eyebrow{font:700 12px/1 Lato,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:900 clamp(30px,7vw,40px)/1.1 Lato,system-ui,sans-serif;margin:10px 0 10px;text-wrap:balance}
+h2{font:900 24px/1.2 Lato,system-ui,sans-serif;margin:0;text-wrap:balance}
+h3{font:900 17px/1.25 Lato,system-ui,sans-serif;margin:0}
+p{margin:0;max-width:62ch}
+.num{font:700 13px/1 Lato,system-ui,sans-serif;color:var(--accent);letter-spacing:.08em}
+.lead{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;font-size:17px}
+section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px clamp(16px,4vw,28px);display:flex;flex-direction:column;gap:16px}
+.short{font-size:17px;color:var(--muted)}
+/* tre riquadri */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:stretch}
+.where{border:2px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.where.full{border-color:var(--ok)} .where.half{border-color:#d9a640} .where.opt{border-style:dashed}
+.light{display:flex;align-items:center;gap:8px;font:700 13px Lato,system-ui,sans-serif}
+.light i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.full .light{color:var(--ok)} .full .light i{background:var(--ok)}
+.half .light{color:var(--warn)} .half .light i{background:#d9a640}
+.opt .light{color:var(--muted)} .opt .light i{background:#bdb9b0}
+.where ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font:15px/1.4 Lato,system-ui,sans-serif}
+.where li{display:grid;grid-template-columns:18px 1fr;gap:6px}
+.where li b{font-weight:900}
+.y b{color:var(--ok)} .n b{color:#b3261e}
+.link{display:flex;align-items:center;justify-content:center;gap:10px;font:700 14px Lato,system-ui,sans-serif;color:var(--accent);background:var(--accent-soft);border-radius:10px;padding:10px 12px;text-align:center}
+.rule{font:900 17px/1.35 Lato,system-ui,sans-serif;background:var(--ok-bg);color:var(--ok);border-radius:10px;padding:12px 14px}
+/* scene */
+.scenes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scene{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;background:#fff}
+.say{font:15px/1.4 Lato,system-ui,sans-serif;background:#d9fdd3;border-radius:12px;padding:8px 10px;align-self:flex-start}
+.ans{font:15px/1.4 Lato,system-ui,sans-serif;background:var(--grey-bg);border-radius:12px;padding:8px 10px;align-self:flex-end}
+.arrow{font:900 18px Lato;color:var(--accent);text-align:center;line-height:1}
+.flow{display:flex;flex-direction:column;gap:6px}
+.step{font:15px/1.4 Lato,system-ui,sans-serif;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}
+.step.stop{border:2px solid var(--warn);background:var(--warn-bg);font-weight:700}
+.step.go{border:2px solid var(--ok);background:var(--ok-bg);font-weight:700}
+/* scelte */
+.ask{display:flex;flex-direction:column;gap:10px;border-top:1px dashed var(--line);padding-top:14px}
+.q{font:700 16px/1.35 Lato,system-ui,sans-serif}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:700 15px Lato,system-ui,sans-serif;border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:24px;padding:10px 14px;cursor:pointer;min-height:44px}
+.chips button.on{border-color:var(--accent);background:var(--accent);color:#fff}
+.chips button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+textarea{width:100%;min-height:70px;resize:vertical;font:16px/1.45 Lato,system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.hint{font:14px/1.4 Lato,system-ui,sans-serif;color:var(--muted)}
+.state{font:13px Lato,system-ui,sans-serif;color:var(--muted);min-height:18px}
+.state.ok{color:var(--ok)}
+.note{font:15px/1.45 Lato,system-ui,sans-serif;background:var(--accent-soft);border-radius:10px;padding:10px 12px}
+/* come proviamo */
+.steps{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
+.steps div{flex:1 1 120px;font:700 15px/1.35 Lato,system-ui,sans-serif;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.steps span{align-self:center;font:900 18px Lato;color:var(--accent)}
+/* invio */
+.sendbox{border:2px solid var(--ok);background:var(--ok-bg);border-radius:14px;padding:24px clamp(16px,4vw,28px);display:flex;flex-direction:column;gap:14px;text-align:center;align-items:center}
+.big{font:900 22px/1.2 Lato,system-ui,sans-serif;background:var(--ok);color:#fff;border:0;border-radius:16px;padding:22px 28px;width:100%;max-width:440px;cursor:pointer;box-shadow:0 6px 0 #1f5135}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 #1f5135}
+.big:disabled{opacity:.6;cursor:default}
+.sendmsg{font:700 17px Lato,system-ui,sans-serif;border-radius:10px;padding:12px 16px;max-width:440px}
+.sendmsg.ok{background:#fff;color:var(--ok)} .sendmsg.err{background:#fbe9e7;color:#b3261e}
+.sendmsg[hidden]{display:none}
+.down{font-size:28px;color:var(--ok);line-height:1}
+.stick{position:sticky;bottom:0;z-index:5;background:var(--ink);color:#fff;border-radius:12px 12px 0 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;gap:12px;font:15px Lato,system-ui,sans-serif;margin-top:8px}
+.stick a{background:var(--ok);color:#fff;text-decoration:none;font-weight:700;border-radius:10px;padding:10px 14px;white-space:nowrap}
+footer{font:14px Lato,system-ui,sans-serif;color:var(--muted);text-align:center}
+@media (max-width:640px){.three,.scenes{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">NOD · il tuo assistente</div>
+  <h1>Proviamo il tuo assistente</h1>
+  <p class="short">Cinque riquadri. In ognuno tocca le risposte che ti somigliano e, se vuoi, aggiungi due parole.</p>
+</header>
+
+<div class="lead">
+  <p><b>Come si usa questa pagina</b></p>
+  <p>1. Tocca le risposte: diventano viola.</p>
+  <p>2. Se vuoi, scrivi nel riquadro sotto. Non è obbligatorio.</p>
+  <p>3. Alla fine premi il <b>pulsante verde grande</b>: è quello che manda tutto ad Alessandro.</p>
+</div>
+
+<!-- 1 -->
+<section class="box" data-sec="P3 · 1. Dove lavora">
+  <div class="num">1 di 5</div>
+  <h2>Dove lavora il tuo assistente?</h2>
+  <div class="three">
+    <div class="where full">
+      <div class="light"><i></i>Fa tutto</div>
+      <h3>Il computer, acceso</h3>
+      <ul>
+        <li class="y"><b>✓</b>Legge la posta e prepara le risposte</li>
+        <li class="y"><b>✓</b>Va a prendere i documenti</li>
+        <li class="y"><b>✓</b>Si ricorda cosa vi siete detti</li>
+        <li class="y"><b>✓</b>Ti prepara la giornata</li>
+        <li class="y"><b>✓</b>Fissa le call</li>
+      </ul>
+    </div>
+    <div class="where half">
+      <div class="light"><i></i>Fa metà</div>
+      <h3>Il telefono</h3>
+      <ul>
+        <li class="y"><b>✓</b>Idee, testi, domande</li>
+        <li class="y"><b>✓</b>Mette le cose in calendario</li>
+        <li class="y"><b>✓</b>Chiede al computer di fare una cosa, se il computer è acceso</li>
+        <li class="n"><b>✕</b>A computer spento: niente posta, niente documenti</li>
+      </ul>
+    </div>
+    <div class="where opt">
+      <div class="light"><i></i>Se vuoi</div>
+      <h3>Un computer sempre acceso in sede</h3>
+      <ul>
+        <li class="y"><b>✓</b>Come il primo, ma lavora anche quando tu non ci sei</li>
+      </ul>
+    </div>
+  </div>
+  <div class="link">Dal telefono chiedi &nbsp;⟶&nbsp; il computer acceso lo fa</div>
+  <div class="rule">In breve: per la posta e i documenti serve un computer acceso.</div>
+  <div class="ask">
+    <div class="q">È chiaro?</div>
+    <div class="chips" data-q="Chiaro" data-single><button>Sì, chiaro</button><button>Non del tutto</button></div>
+    <textarea placeholder="Se qualcosa non è chiaro, scrivilo qui"></textarea>
+    <div class="state"></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="box" data-sec="P3 · 2. Cosa fa per te">
+  <div class="num">2 di 5</div>
+  <h2>Cosa fa per te ogni giorno?</h2>
+  <p class="short">Quattro esempi. Per ognuno dimmi se ti serve.</p>
+  <div class="scenes">
+    <div class="scene">
+      <h3>La giornata</h3>
+      <div class="say">cosa ho oggi?</div>
+      <div class="ans">3 call, 2 mail a cui rispondere, una rata che scade venerdì.</div>
+      <div class="chips" data-q="La giornata" data-single><button>Mi serve</button><button>Così così</button><button>No</button></div>
+    </div>
+    <div class="scene">
+      <h3>Le call</h3>
+      <div class="say">fissami mezz'ora con Andrea giovedì</div>
+      <div class="ans">Sei libera alle 11 o alle 15. Quale? Poi gli mando l'invito, se mi dici di sì.</div>
+      <div class="chips" data-q="Le call" data-single><button>Mi serve</button><button>Così così</button><button>No</button></div>
+    </div>
+    <div class="scene">
+      <h3>I messaggi</h3>
+      <div class="flow">
+        <div class="step">Tu: "scrivi a Marta che marzo va bene"</div>
+        <div class="arrow">↓</div>
+        <div class="step">Scrive nel tono giusto per un'artista</div>
+        <div class="arrow">↓</div>
+        <div class="step stop">Si ferma: "va bene? mando io o mandi tu?"</div>
+        <div class="arrow">↓</div>
+        <div class="step go">Parte solo se dici sì</div>
+      </div>
+      <div class="chips" data-q="I messaggi" data-single><button>Mi serve</button><button>Così così</button><button>No</button></div>
+    </div>
+    <div class="scene">
+      <h3>I promemoria</h3>
+      <div class="say">ricordami venerdì alle 9 di chiamare il landlord</div>
+      <div class="ans">Fatto, è nel calendario con l'avviso.</div>
+      <div class="chips" data-q="I promemoria" data-single><button>Mi serve</button><button>Così così</button><button>No</button></div>
+    </div>
+  </div>
+  <div class="ask">
+    <div class="q">C'è altro che fai ogni giorno e vorresti passargli?</div>
+    <textarea placeholder="Per esempio: rispondere sempre alle stesse domande, cercare vecchie mail…"></textarea>
+    <div class="state"></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="box" data-sec="P3 · 3. A chi scrivi">
+  <div class="num">3 di 5</div>
+  <h2>A chi scrivi di solito?</h2>
+  <p class="short">Tocca tutti quelli a cui scrivi spesso.</p>
+  <div class="chips" data-q="Scrive a">
+    <button>Candidati</button><button>Studenti</button><button>Artisti ospiti</button><button>Andrea</button><button>Chiara</button><button>Landlord</button><button>Commercialista</button><button>Fornitori</button><button>Teatri e festival</button><button>Altri</button>
+  </div>
+  <div class="ask">
+    <div class="q">Come scrivi a ciascuno?</div>
+    <textarea placeholder="Per esempio: agli artisti in inglese, amichevole; al commercialista formale"></textarea>
+    <div class="state"></div>
+  </div>
+  <div class="note">Il primo giorno, al computer, guardiamo insieme le mail che hai già mandato: impara il tuo modo di scrivere da lì, e tu lo correggi.</div>
+</section>
+
+<!-- 4 -->
+<section class="box" data-sec="P3 · 4. Le call">
+  <div class="num">4 di 5</div>
+  <h2>Le tue call</h2>
+  <div class="ask" style="border-top:0;padding-top:0">
+    <div class="q">Quando le fissi volentieri?</div>
+    <div class="chips" data-q="Orari"><button>Mattina</button><button>Ora di pranzo</button><button>Pomeriggio</button><button>Sera</button><button>Sabato</button><button>Domenica</button></div>
+  </div>
+  <div class="ask">
+    <div class="q">Prima di una call, cosa ti farebbe comodo avere davanti?</div>
+    <div class="chips" data-q="Prima della call"><button>Chi è</button><button>Cosa vi siete detti l'ultima volta</button><button>Cosa devi chiedere o decidere</button><button>I documenti da avere sotto mano</button></div>
+    <textarea placeholder="Altro che ti servirebbe sapere prima"></textarea>
+    <div class="state"></div>
+  </div>
+  <div class="note">Questo lo costruiamo insieme: quando abbiamo capito cosa ti serve, te lo prepara sempre nello stesso formato.</div>
+</section>
+
+<!-- 5 -->
+<section class="box" data-sec="P3 · 5. Il computer">
+  <div class="num">5 di 5</div>
+  <h2>Il tuo computer</h2>
+  <div class="ask" style="border-top:0;padding-top:0">
+    <div class="q">Di giorno il tuo computer è acceso?</div>
+    <div class="chips" data-q="Acceso di giorno" data-single><button>Quasi sempre</button><button>A volte</button><button>Poco</button></div>
+  </div>
+  <div class="ask">
+    <div class="q">Un computer sempre acceso in sede, attaccato alla presa, si può fare?</div>
+    <div class="chips" data-q="Computer in sede" data-single><button>Sì, si può</button><button>No</button><button>Ne parliamo</button></div>
+    <textarea placeholder="Se vuoi aggiungere qualcosa"></textarea>
+    <div class="state"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Come proviamo</h2>
+  <div class="steps">
+    <div>Installiamo insieme sul tuo computer (mezz'ora)</div><span>→</span>
+    <div>Due settimane di prova</div><span>→</span>
+    <div>Mi dici cosa va e cosa no</div><span>→</span>
+    <div>Lo sistemiamo</div>
+  </div>
+  <p class="short">Decidi sempre tu: niente parte senza il tuo sì.</p>
+</section>
+
+<section id="sinvio" class="sendbox">
+  <div class="num">Ultimo passo</div>
+  <h2>Manda le risposte ad Alessandro</h2>
+  <p>Premi il pulsante verde: è quello che manda tutto.</p>
+  <div class="down">↓</div>
+  <button id="sendall" class="big">Manda ad Alessandro</button>
+  <div id="sendmsg" class="sendmsg" hidden></div>
+</section>
+
+<footer>Puoi tornare qui quando vuoi, cambiare le risposte e premere di nuovo il pulsante verde.</footer>
+<div class="stick"><span id="cnt">Tocca le risposte, poi premi il pulsante verde in fondo.</span><a href="#sinvio">Ho finito</a></div>
+</div>
+
+<script>
+(function(){
+  var FORM='https://docs.google.com/forms/d/e/1FAIpQLSfLqqJR4yuN4ne7odnKFgtimuqfAqT8KbL9AVcKcs8OIaDRMw/formResponse';
+  var F_SEC='entry.442569314', F_TXT='entry.477559920';
+  function post(sec,text){var fd=new FormData();fd.append(F_SEC,sec);fd.append(F_TXT,text);return fetch(FORM,{method:'POST',mode:'no-cors',body:fd});}
+  function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  var boxes=[].slice.call(document.querySelectorAll('.box'));
+  var savers=[];
+
+  function summary(box){
+    var parts=[];
+    box.querySelectorAll('.chips').forEach(function(g){
+      var on=[].slice.call(g.querySelectorAll('button.on')).map(function(b){return b.textContent});
+      if(on.length) parts.push(g.getAttribute('data-q')+': '+on.join(', '));
+    });
+    var ta=box.querySelector('textarea');
+    if(ta&&ta.value.trim()) parts.push('Nota: '+ta.value.trim());
+    return parts.join('\n');
+  }
+  function count(){
+    var n=boxes.filter(function(b){return summary(b)}).length;
+    document.getElementById('cnt').textContent = n ? ('Hai risposto in '+n+' riquadri su 5. Quando hai finito:') : 'Tocca le risposte, poi premi il pulsante verde in fondo.';
+  }
+
+  boxes.forEach(function(box){
+    var sec=box.getAttribute('data-sec'), st=box.querySelector('.state'), key='nod-p3:'+sec, last='', t=null;
+    var saved=load(key);
+    if(saved){
+      try{var o=JSON.parse(saved);
+        box.querySelectorAll('.chips').forEach(function(g){var sel=o.c[g.getAttribute('data-q')]||[];g.querySelectorAll('button').forEach(function(b){if(sel.indexOf(b.textContent)>-1)b.classList.add('on')})});
+        var ta0=box.querySelector('textarea'); if(ta0&&o.t) ta0.value=o.t; last=summary(box);
+        if(st){st.className='state ok';st.textContent='Salvato';}
+      }catch(e){}
+    }
+    function snapshot(){var c={};box.querySelectorAll('.chips').forEach(function(g){c[g.getAttribute('data-q')]=[].slice.call(g.querySelectorAll('button.on')).map(function(b){return b.textContent})});var ta=box.querySelector('textarea');return JSON.stringify({c:c,t:ta?ta.value:''});}
+    function save(){
+      var text=summary(box); store(key,snapshot());
+      if(!text||text===last) return;
+      if(st){st.className='state';st.textContent='Salvo…';}
+      post(sec,text).then(function(){last=text; if(st){st.className='state ok';st.textContent='Salvato';}})
+        .catch(function(){if(st){st.className='state';st.textContent='Non salvato: controlla la connessione';}});
+    }
+    savers.push(save);
+    box.querySelectorAll('.chips').forEach(function(g){
+      var single=g.hasAttribute('data-single');
+      g.querySelectorAll('button').forEach(function(b){
+        b.setAttribute('type','button');
+        b.addEventListener('click',function(){
+          if(single){g.querySelectorAll('button').forEach(function(x){if(x!==b)x.classList.remove('on')});}
+          b.classList.toggle('on');
+          b.setAttribute('aria-pressed',b.classList.contains('on'));
+          count(); clearTimeout(t); t=setTimeout(save,1500);
+        });
+      });
+    });
+    var ta=box.querySelector('textarea');
+    if(ta){ta.addEventListener('input',function(){store(key,snapshot());count();}); ta.addEventListener('blur',save);}
+  });
+  count();
+  function saveAll(){savers.forEach(function(f){f()})}
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')saveAll()});
+  window.addEventListener('pagehide',saveAll);
+
+  var btn=document.getElementById('sendall'), msg=document.getElementById('sendmsg');
+  btn.addEventListener('click',function(){
+    var all=boxes.map(function(b){var s=summary(b);return s?(b.getAttribute('data-sec').replace('P3 · ','')+'\n'+s):''}).filter(Boolean);
+    if(!all.length){msg.className='sendmsg err';msg.textContent='Non hai ancora toccato nessuna risposta.';msg.hidden=false;return;}
+    btn.disabled=true; msg.hidden=true;
+    post('P3 · INVIO FINALE',all.join('\n\n')).then(function(){
+      msg.className='sendmsg ok';msg.textContent='Fatto: le tue risposte sono partite per Alessandro. Grazie.';msg.hidden=false;btn.disabled=false;btn.textContent='Manda di nuovo';
+    }).catch(function(){msg.className='sendmsg err';msg.textContent='Non è partito: controlla la connessione e premi di nuovo.';msg.hidden=false;btn.disabled=false;});
+  });
+})();
+</script>
+</body>
+</html>
